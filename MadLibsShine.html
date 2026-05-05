@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Mad Libs - Shine On You Crazy Diamond</title>
+</head>
+<body>
+
+  <h1>Mad Libs - Shine On You Crazy Diamond 🎶</h1>
+  <p>Preencha os espaços:</p>
+
+  <p>
+    Remember when you were 
+    <input type="text" oninput="atualizar()">?
+    <br><br>
+
+    You 
+    <input type="text" oninput="atualizar()"> like the 
+    <input type="text" oninput="atualizar()">
+    <br><br>
+
+    Shine on, you crazy 
+    <input type="text" oninput="atualizar()">
+    <br><br>
+
+    Now there's a 
+    <input type="text" oninput="atualizar()"> in your 
+    <input type="text" oninput="atualizar()">
+    <br><br>
+
+    Like 
+    <input type="text" oninput="atualizar()"> holes in the 
+    <input type="text" oninput="atualizar()">
+    <br><br>
+
+    <input type="text" oninput="atualizar()"> on, you crazy 
+    <input type="text" oninput="atualizar()">
+  </p>
+
+  <h2>Resultado:</h2>
+  <p id="resultado"></p>
+
+  <script>
+    function atualizar() {
+      const inputs = document.querySelectorAll("input");
+      const valores = Array.from(inputs).map(i => i.value || "_____");
+
+      const texto = `
+Remember when you were ${valores[0]}?
+You ${valores[1]} like the ${valores[2]}
+Shine on, you crazy ${valores[3]}
+
+Now there's a ${valores[4]} in your ${valores[5]}
+Like ${valores[6]} holes in the ${valores[7]}
+${valores[8]} on, you crazy ${valores[9]}
+      `;
+
+      document.getElementById("resultado").innerText = texto;
+    }
+  </script>
+
+</body>
+</html>
