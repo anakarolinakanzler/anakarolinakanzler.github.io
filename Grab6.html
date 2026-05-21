@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GRAB Technology</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#f4f7fb;
+  color:#0f172a;
+  overflow-x:hidden;
+}
+
+/* HEADER */
+
+header{
+  width:100%;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  padding:18px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:fixed;
+  top:0;
+  z-index:999;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo img{
+  width:70px;
+  animation:float 4s ease-in-out infinite;
+}
+
+.logo h1{
+  color:#0047AB;
+  font-size:30px;
+}
+
+.logo span{
+  color:#ff355e;
+}
+
+nav{
+  display:flex;
+  gap:25px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#1e293b;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#0047AB;
+}
+
+.header-actions{
+  display:flex;
+  gap:15px;
+}
+
+.btn-login{
+  background:#0047AB;
+  color:white;
+  padding:12px 22px;
+  border-radius:12px;
+  text-decoration:none;
+  transition:0.3s;
+  font-weight:bold;
+}
+
+.btn-login:hover{
+  transform:translateY(-3px);
+}
+
+#btnMeuPerfil{
+  background:#ff355e;
+  display:none;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:130px 8%;
+  background:
+  linear-gradient(
+    135deg,
+    #0047AB,
+    #001b3d
+  );
+  color:white;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:rgba(255,255,255,0.05);
+  border-radius:50%;
+  top:-150px;
+  right:-150px;
+}
+
+.hero-text{
+  width:50%;
+  z-index:2;
+}
+
+.hero-text h2{
+  font-size:65px;
+  line-height:1.1;
+  margin-bottom:25px;
+}
+
+.hero-text h2 span{
+  color:#ff355e;
+}
+
+.hero-text p{
+  font-size:20px;
+  line-height:1.7;
+  margin-bottom:35px;
+  color:#dbeafe;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.btn-primary{
+  background:
+  linear-gradient(
+    135deg,
+    #ff355e,
+    #ff1744
+  );
+  color:white;
+  padding:15px 30px;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+  font-weight:bold;
+  box-shadow:
+  0 10px 20px rgba(255,53,94,0.25);
+}
+
+.btn-primary:hover{
+  transform:translateY(-3px);
+}
+
+.btn-secondary{
+  background:transparent;
+  border:2px solid white;
+  color:white;
+  padding:15px 30px;
+  border-radius:14px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+  font-weight:bold;
+}
+
+.btn-secondary:hover{
+  background:white;
+  color:#0047AB;
+}
+
+.hero-image{
+  width:45%;
+  display:flex;
+  justify-content:center;
+  z-index:2;
+}
+
+.hero-image img{
+  width:100%;
+  max-width:500px;
+  animation:float 4s ease-in-out infinite;
+}
+
+/* FLOAT */
+
+@keyframes float{
+
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-15px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+
+}
+
+section{
+  padding:100px 8%;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.section-title h3{
+  font-size:45px;
+  color:#0047AB;
+  margin-bottom:15px;
+}
+
+.section-title p{
+  color:#64748b;
+  font-size:18px;
+}
+
+/* GRID */
+
+.cards,
+.feed-container,
+.tech-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+}
+
+/* CARDS */
+
+.card,
+.post,
+.tech-card{
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(12px);
+  padding:30px;
+  border-radius:24px;
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.08);
+  transition:0.4s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before,
+.post::before,
+.tech-card::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  background:rgba(0,71,171,0.06);
+  border-radius:50%;
+  top:-80px;
+  right:-80px;
+}
+
+.card:hover,
+.post:hover,
+.tech-card:hover{
+  transform:
+  translateY(-10px)
+  scale(1.01);
+}
+
+.card h4,
+.post h5,
+.tech-card h4{
+  color:#0047AB;
+  margin-bottom:15px;
+  position:relative;
+  z-index:2;
+}
+
+.card p,
+.post p,
+.tech-card p{
+  color:#475569;
+  line-height:1.7;
+  position:relative;
+  z-index:2;
+}
+
+/* TAG */
+
+.tag{
+  background:#ff355e;
+  color:white;
+  padding:7px 14px;
+  border-radius:30px;
+  display:inline-block;
+  font-size:13px;
+  font-weight:bold;
+}
+
+/* BUTTONS */
+
+.btn-match{
+  background:#0047AB;
+  color:white;
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  margin-top:20px;
+  cursor:pointer;
+  transition:0.3s;
+  font-weight:bold;
+}
+
+.btn-match:hover{
+  background:#001b3d;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.modal-content{
+  background:white;
+  width:90%;
+  max-width:650px;
+  border-radius:25px;
+  padding:40px;
+  position:relative;
+  max-height:90vh;
+  overflow-y:auto;
+}
+
+.close{
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:30px;
+  cursor:pointer;
+}
+
+/* INPUTS */
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:15px;
+  margin-top:12px;
+  margin-bottom:18px;
+  border-radius:14px;
+  border:2px solid transparent;
+  background:#f8fafc;
+  outline:none;
+  transition:0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#0047AB;
+  background:white;
+  box-shadow:
+  0 0 0 4px rgba(0,71,171,0.1);
+}
+
+/* VALIDATION */
+
+.input-error{
+  border-color:#ef4444 !important;
+}
+
+.input-success{
+  border-color:#22c55e !important;
+}
+
+/* FOOTER */
+
+footer{
+  background:#001b3d;
+  color:white;
+  text-align:center;
+  padding:50px;
+}
+
+footer p{
+  margin-top:15px;
+  color:#cbd5e1;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+  .hero{
+    flex-direction:column;
+    text-align:center;
+    gap:50px;
+  }
+
+  .hero-text,
+  .hero-image{
+    width:100%;
+  }
+
+  .hero-text h2{
+    font-size:45px;
+  }
+
+  nav{
+    display:none;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+
+    <img src="https://frontarolli-git.github.io/logo%20GRAB.jpeg">
+
+    <h1>
+      GRAB <span>Technology</span>
+    </h1>
+
+  </div>
+
+  <nav>
+
+    <a href="#inicio">Início</a>
+    <a href="#funcionalidades">Funcionalidades</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#feed">Feed</a>
+    <a href="#tecnicos">Técnicos</a>
+    <a href="#sobre">Sobre</a>
+
+  </nav>
+
+  <div class="header-actions">
+
+    <a href="#"
+    class="btn-login"
+    onclick="abrirModal('modalEscolha')">
+
+      Entrar
+
+    </a>
+
+    <a href="#"
+    class="btn-login"
+    id="btnMeuPerfil"
+    onclick="abrirModal('perfilUsuario')">
+
+      Meu Perfil
+
+    </a>
+
+  </div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="inicio">
+
+  <div class="hero-text">
+
+    <h2>
+
+      Pegue o profissional
+      certo em
+      <span>minutos.</span>
+
+    </h2>
+
+    <p>
+
+      Plataforma inteligente de serviços em TI
+      com IA de triagem, feed social e conexão
+      entre clientes e técnicos qualificados.
+
+    </p>
+
+    <div class="hero-buttons">
+
+      <button class="btn-primary"
+      onclick="abrirModal('modalEscolha')">
+
+        🐸 Publicar Serviço
+
+      </button>
+
+      <button class="btn-secondary"
+      onclick="document.getElementById('feed').scrollIntoView()">
+
+        Explorar Feed
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="hero-image">
+
+    <img src="https://frontarolli-git.github.io/logo%20GRAB.jpeg">
+
+  </div>
+
+</section>
+
+<!-- FUNCIONALIDADES -->
+
+<section id="funcionalidades">
+
+  <div class="section-title">
+
+    <h3>Funcionalidades</h3>
+
+    <p>
+      Marketplace + Rede Social + IA + Serviços Tech
+    </p>
+
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h4>🐸 Feed Inteligente</h4>
+
+      <p>
+        Serviços em formato de feed moderno.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <h4>⚡ Match Profissional</h4>
+
+      <p>
+        Técnicos demonstram interesse em tempo real.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <h4>🧠 IA de Triagem</h4>
+
+      <p>
+        Diagnóstico prévio inteligente.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <h4>🔗 Perfil Integrado</h4>
+
+      <p>
+        Conecte LinkedIn, GitHub e Instagram.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SERVIÇOS -->
+
+<section id="servicos">
+
+  <div class="section-title">
+
+    <h3>Serviços Disponíveis</h3>
+
+    <p>
+      Tudo em tecnologia em um só lugar.
+    </p>
+
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <h4>💻 Desenvolvimento Web</h4>
+      <p>Sites, APIs e plataformas.</p>
+    </div>
+
+    <div class="card">
+      <h4>🛠️ Suporte Técnico</h4>
+      <p>Manutenção e upgrades.</p>
+    </div>
+
+    <div class="card">
+      <h4>🎨 Design Gráfico</h4>
+      <p>Identidade visual e social media.</p>
+    </div>
+
+    <div class="card">
+      <h4>☁️ Cloud & Infraestrutura</h4>
+      <p>Servidores e redes.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FEED -->
+
+<section id="feed" style="background:#edf3ff;">
+
+  <div class="section-title">
+
+    <h3>Feed de Serviços</h3>
+
+    <p>
+      Explore solicitações abertas.
+    </p>
+
+  </div>
+
+  <div class="feed-container">
+
+    <div class="post">
+
+      <span class="tag">Urgente</span>
+
+      <h5 style="margin-top:20px;">
+        Loja Virtual Completa
+      </h5>
+
+      <p>
+        Cliente busca desenvolvedor React.
+      </p>
+
+      <br>
+
+      <p>
+        📍 São Paulo • 💰 R$ 3.500
+      </p>
+
+      <button class="btn-match">
+        🐸 Pegar Serviço
+      </button>
+
+    </div>
+
+    <div class="post">
+
+      <span class="tag">Hoje</span>
+
+      <h5 style="margin-top:20px;">
+        Notebook Superaquecendo
+      </h5>
+
+      <p>
+        Necessário suporte técnico urgente.
+      </p>
+
+      <br>
+
+      <p>
+        📍 Campinas • 💰 R$ 250
+      </p>
+
+      <button class="btn-match">
+        🐸 Pegar Serviço
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- TÉCNICOS -->
+
+<section id="tecnicos">
+
+  <div class="section-title">
+
+    <h3>Técnicos em Destaque</h3>
+
+    <p>
+      Profissionais qualificados.
+    </p>
+
+  </div>
+
+  <div class="tech-container">
+
+    <!-- CARD 1 -->
+
+    <div class="tech-card">
+
+      <img
+      src="https://i.pravatar.cc/150?img=12"
+      style="
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      margin-bottom:20px;
+      ">
+
+      <h4>Lucas Andrade</h4>
+
+      <p>
+        Desenvolvedor Full Stack
+      </p>
+
+      <br>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+
+        <span class="tag">React</span>
+        <span class="tag">Node</span>
+        <span class="tag">UI/UX</span>
+
+      </div>
+
+      <br>
+
+      <p>
+        ⭐ 4.9 • 124 serviços concluídos
+      </p>
+
+      <button class="btn-match"
+      onclick="abrirPerfilTecnico(
+      'Lucas Andrade',
+      'Desenvolvedor Full Stack',
+      'https://i.pravatar.cc/150?img=12',
+      'Especialista em plataformas modernas React e Node.',
+      ['React','Node','UI/UX']
+      )">
+
+        🐸 Ver Perfil
+
+      </button>
+
+    </div>
+
+    <!-- CARD 2 -->
+
+    <div class="tech-card">
+
+      <img
+      src="https://i.pravatar.cc/150?img=32"
+      style="
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      margin-bottom:20px;
+      ">
+
+      <h4>Fernanda Costa</h4>
+
+      <p>
+        Designer UX/UI
+      </p>
+
+      <br>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+
+        <span class="tag">Figma</span>
+        <span class="tag">Branding</span>
+
+      </div>
+
+      <br>
+
+      <p>
+        ⭐ 5.0 • 210 projetos
+      </p>
+
+      <button class="btn-match"
+      onclick="abrirPerfilTecnico(
+      'Fernanda Costa',
+      'Designer UX/UI',
+      'https://i.pravatar.cc/150?img=32',
+      'Especialista em experiência do usuário e branding.',
+      ['Figma','Branding','UX']
+      )">
+
+        🐸 Ver Perfil
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SOBRE -->
+
+<section id="sobre">
+
+  <div class="section-title">
+
+    <h3>Sobre a GRAB</h3>
+
+    <p>
+
+      Plataforma desenvolvida pela LookTech
+      para revolucionar a contratação de
+      serviços em tecnologia.
+
+    </p>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <h2>GRAB Technology</h2>
+
+  <p>
+
+    Plataforma desenvolvida pela LookTech.
+
+  </p>
+
+</footer>
+
+<!-- MODAL ESCOLHA -->
+
+<div class="modal" id="modalEscolha">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="fecharModal('modalEscolha')">
+
+      &times;
+
+    </span>
+
+    <h2>Como deseja entrar?</h2>
+
+    <button class="btn-primary"
+    style="width:100%;"
+    onclick="trocarModal('modalEscolha','modalCliente')">
+
+      Sou Cliente
+
+    </button>
+
+    <button class="btn-secondary"
+    style="
+    width:100%;
+    margin-top:15px;
+    color:#0047AB;
+    border:2px solid #0047AB;
+    "
+    onclick="trocarModal('modalEscolha','modalTecnico')">
+
+      Sou Técnico
+
+    </button>
+
+  </div>
+
+</div>
+
+<!-- CLIENTE -->
+
+<div class="modal" id="modalCliente">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="fecharModal('modalCliente')">
+
+      &times;
+
+    </span>
+
+    <h2>Cadastro Cliente</h2>
+
+    <input type="text"
+    id="clienteNome"
+    placeholder="Nome">
+
+    <input type="email"
+    id="clienteEmail"
+    placeholder="Email">
+
+    <input type="text"
+    id="clienteTelefone"
+    placeholder="Telefone">
+
+    <input type="password"
+    placeholder="Senha">
+
+    <button class="btn-primary"
+    style="width:100%;"
+    onclick="validarCadastroCliente()">
+
+      Continuar
+
+    </button>
+
+  </div>
+
+</div>
+
+<!-- IA -->
+
+<div class="modal" id="modalIA">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="fecharModal('modalIA')">
+
+      &times;
+
+    </span>
+
+    <h2>🧠 IA de Triagem</h2>
+
+    <input type="text"
+    placeholder="Qual o problema?">
+
+    <select>
+
+      <option>Qual a urgência?</option>
+      <option>Baixa</option>
+      <option>Média</option>
+      <option>Alta</option>
+
+    </select>
+
+    <textarea rows="5"
+    placeholder="Descreva o problema">
+    </textarea>
+
+    <button class="btn-primary"
+    style="width:100%;"
+    onclick="gerarDiagnostico()">
+
+      Analisar com IA
+
+    </button>
+
+  </div>
+
+</div>
+
+<!-- RESULTADO IA -->
+
+<div class="modal" id="resultadoIA">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="fecharModal('resultadoIA')">
+
+      &times;
+
+    </span>
+
+    <h2>Diagnóstico Prévio</h2>
+
+    <div class="card">
+
+      <p id="diagnosticoTexto"></p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- TÉCNICO -->
+
+<div class="modal" id="modalTecnico">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="fecharModal('modalTecnico')">
+
+      &times;
+
+    </span>
+
+    <h2>Cadastro Técnico</h2>
+
+    <input type="text"
+    id="tecNome"
+    placeholder="Nome">
+
+    <input type="text"
+    id="tecTelefone"
+    placeholder="Telefone">
+
+    <input type="email"
+    id="tecEmail"
+    placeholder="Email">
+
+    <input type="password"
+    placeholder="Senha">
+
+    <input type="text"
+    id="tecEspecialidade"
+    placeholder="Especialidade">
+
+    <input type="text"
+    id="tecLinkedin"
+    placeholder="LinkedIn">
+
+    <input type="text"
+    id="tecGithub"
+    placeholder="GitHub">
+
+    <input type="text"
+    id="tecInstagram"
+    placeholder="Instagram">
+
+    <textarea rows="4"
+    id="tecBio"
+    placeholder="Bio profissional">
+    </textarea>
+
+    <button class="btn-primary"
+    style="width:100%;"
+    onclick="criarPerfilTecnico()">
+
+      Criar Perfil Técnico
+
+    </button>
+
+  </div>
+
+</div>
+
+<!-- PERFIL TÉCNICO -->
+
+<div class="modal" id="perfilPublicoTecnico">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="fecharModal('perfilPublicoTecnico')">
+
+      &times;
+
+    </span>
+
+    <div style="text-align:center;">
+
+      <img
+      id="publicoFoto"
+      src=""
+      style="
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      margin-bottom:20px;
+      ">
+
+      <h2 id="publicoNome"></h2>
+
+      <p id="publicoEspecialidade"></p>
+
+      <br>
+
+      <div
+      id="publicoSkills"
+      style="
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      ">
+      </div>
+
+      <br>
+
+      <p id="publicoBio"></p>
+
+      <br>
+
+      <div class="card">
+
+        <p>⭐ 4.9 avaliação média</p>
+        <p>✅ 120+ serviços concluídos</p>
+        <p>⚡ Resposta rápida</p>
+
+      </div>
+
+      <br>
+
+      <button class="btn-primary">
+
+        🐸 Contratar Técnico
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- PERFIL USUÁRIO -->
+
+<div class="modal" id="perfilUsuario">
+
+  <div class="modal-content">
+
+    <span class="close"
+    onclick="fecharModal('perfilUsuario')">
+
+      &times;
+
+    </span>
+
+    <h2>Meu Perfil</h2>
+
+    <div class="card">
+
+      <h3 id="meuNome"></h3>
+
+      <p id="minhaEspecialidade"></p>
+
+      <br>
+
+      <p id="minhaBio"></p>
+
+      <br>
+
+      <div id="minhasSkills"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+// MODAL
+
+function abrirModal(id){
+
+  document.getElementById(id)
+  .style.display = "flex";
+
+}
+
+function fecharModal(id){
+
+  document.getElementById(id)
+  .style.display = "none";
+
+}
+
+function trocarModal(fecha, abre){
+
+  fecharModal(fecha);
+  abrirModal(abre);
+
+}
+
+// IA
+
+function gerarDiagnostico(){
+
+  trocarModal("modalIA","resultadoIA");
+
+  document.getElementById("diagnosticoTexto")
+  .innerHTML = `
+
+  Possível problema relacionado a hardware
+  ou desempenho do equipamento.
+
+  <br><br>
+
+  Categoria sugerida:
+  <strong>Suporte Técnico</strong>
+
+  <br><br>
+
+  Prioridade:
+  <strong>Média/Alta</strong>
+
+  `;
+
+}
+
+// INPUTS
+
+const clienteNome =
+document.getElementById("clienteNome");
+
+const clienteTelefone =
+document.getElementById("clienteTelefone");
+
+const clienteEmail =
+document.getElementById("clienteEmail");
+
+const tecnicoNome =
+document.getElementById("tecNome");
+
+const tecnicoTelefone =
+document.getElementById("tecTelefone");
+
+const tecnicoEmail =
+document.getElementById("tecEmail");
+
+// LETRAS
+
+function apenasLetras(campo){
+
+  campo.addEventListener("input", () => {
+
+    campo.value =
+    campo.value.replace(
+    /[^a-zA-ZÀ-ÿ\s]/g,
+    ""
+    );
+
+  });
+
+}
+
+apenasLetras(clienteNome);
+apenasLetras(tecnicoNome);
+
+// TELEFONE
+
+function mascaraTelefone(campo){
+
+  campo.addEventListener("input", () => {
+
+    let valor =
+    campo.value.replace(/\D/g,"");
+
+    valor =
+    valor.replace(
+    /^(\d{2})(\d)/g,
+    "($1) $2"
+    );
+
+    valor =
+    valor.replace(
+    /(\d{5})(\d)/,
+    "$1-$2"
+    );
+
+    campo.value = valor;
+
+  });
+
+}
+
+mascaraTelefone(clienteTelefone);
+mascaraTelefone(tecnicoTelefone);
+
+// EMAIL
+
+function validarCampoEmail(campo){
+
+  campo.addEventListener("input", () => {
+
+    const regex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(regex.test(campo.value)){
+
+      campo.classList.remove("input-error");
+      campo.classList.add("input-success");
+
+    }
+
+    else{
+
+      campo.classList.remove("input-success");
+      campo.classList.add("input-error");
+
+    }
+
+  });
+
+}
+
+validarCampoEmail(clienteEmail);
+validarCampoEmail(tecnicoEmail);
+
+// CLIENTE
+
+function validarCadastroCliente(){
+
+  if(clienteNome.value.trim() === ""){
+
+    alert("Digite um nome válido.");
+    return;
+
+  }
+
+  if(clienteTelefone.value.length < 15){
+
+    alert("Digite um telefone válido.");
+    return;
+
+  }
+
+  if(clienteEmail.classList.contains("input-error")){
+
+    alert("Digite um email válido.");
+    return;
+
+  }
+
+  trocarModal("modalCliente","modalIA");
+
+}
+
+// PERFIL TÉCNICO
+
+function criarPerfilTecnico(){
+
+  const nome =
+  tecnicoNome.value;
+
+  const especialidade =
+  document.getElementById("tecEspecialidade")
+  .value;
+
+  if(nome.trim() === ""){
+
+    alert("Digite um nome válido.");
+    return;
+
+  }
+
+  if(tecnicoTelefone.value.length < 15){
+
+    alert("Digite um telefone válido.");
+    return;
+
+  }
+
+  if(tecnicoEmail.classList.contains("input-error")){
+
+    alert("Digite um email válido.");
+    return;
+
+  }
+
+  alert("Cadastro concluído!");
+
+  fecharModal("modalTecnico");
+
+  document.getElementById("btnMeuPerfil")
+  .style.display = "block";
+
+  document.getElementById("meuNome")
+  .innerText = nome;
+
+  document.getElementById("minhaEspecialidade")
+  .innerText = especialidade;
+
+  document.getElementById("minhaBio")
+  .innerText =
+  document.getElementById("tecBio").value;
+
+  document.getElementById("minhasSkills")
+  .innerHTML = `
+
+  <span class="tag">
+  ${especialidade}
+  </span>
+
+  `;
+
+}
+
+// PERFIL PÚBLICO
+
+function abrirPerfilTecnico(
+nome,
+especialidade,
+foto,
+bio,
+skills
+){
+
+  abrirModal("perfilPublicoTecnico");
+
+  document.getElementById("publicoNome")
+  .innerText = nome;
+
+  document.getElementById("publicoEspecialidade")
+  .innerText = especialidade;
+
+  document.getElementById("publicoFoto")
+  .src = foto;
+
+  document.getElementById("publicoBio")
+  .innerText = bio;
+
+  const skillsDiv =
+  document.getElementById("publicoSkills");
+
+  skillsDiv.innerHTML = "";
+
+  skills.forEach(skill => {
+
+    skillsDiv.innerHTML += `
+    
+    <span class="tag">
+      ${skill}
+    </span>
+    
+    `;
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
