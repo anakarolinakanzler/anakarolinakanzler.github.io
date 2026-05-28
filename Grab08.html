@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRAB Technology</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+:root{
+  --blue:#0047AB;
+  --dark:#001b3d;
+  --red:#ff355e;
+  --bg:#f4f7fb;
+  --text:#0f172a;
+  --muted:#64748b;
+  --card:rgba(255,255,255,0.9);
+  --shadow:0 10px 40px rgba(0,71,171,0.12);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+
+/* ===== TELAS ===== */
+.screen{display:none;min-height:100vh;}
+.screen.active{display:block;}
+
+/* ===== HEADER ===== */
+header{
+  width:100%;background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(16px);padding:16px 6%;
+  display:flex;justify-content:space-between;align-items:center;
+  position:fixed;top:0;z-index:999;
+  box-shadow:0 2px 20px rgba(0,0,0,0.06);
+}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--blue),var(--dark));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.logo h1{font-family:'Syne',sans-serif;font-size:22px;color:var(--blue);font-weight:800;}
+.logo h1 span{color:var(--red);}
+nav{display:flex;gap:28px;}
+nav a{text-decoration:none;color:var(--text);font-weight:500;font-size:15px;transition:.2s;cursor:pointer;}
+nav a:hover{color:var(--blue);}
+.header-actions{display:flex;gap:12px;align-items:center;}
+.btn-outline{background:transparent;border:2px solid var(--blue);color:var(--blue);padding:9px 20px;border-radius:10px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-outline:hover{background:var(--blue);color:white;}
+.btn-primary{background:var(--blue);color:white;padding:10px 22px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-primary:hover{background:var(--dark);transform:translateY(-1px);}
+.btn-red{background:var(--red);color:white;padding:10px 22px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-red:hover{opacity:.88;transform:translateY(-1px);}
+.avatar-mini{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--red));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:15px;cursor:pointer;border:2px solid white;box-shadow:var(--shadow);}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:space-between;
+  padding:130px 6% 80px;
+  background:linear-gradient(135deg,#0047AB 0%,#001b3d 100%);
+  color:white;position:relative;overflow:hidden;
+}
+.hero::before{content:"";position:absolute;width:600px;height:600px;background:rgba(255,255,255,0.04);border-radius:50%;top:-200px;right:-200px;}
+.hero::after{content:"";position:absolute;width:300px;height:300px;background:rgba(255,53,94,0.12);border-radius:50%;bottom:-100px;left:20%;}
+.hero-text{width:52%;z-index:2;position:relative;}
+.hero-text h2{font-family:'Syne',sans-serif;font-size:58px;line-height:1.08;margin-bottom:22px;font-weight:800;}
+.hero-text h2 span{color:var(--red);}
+.hero-text p{font-size:18px;line-height:1.75;margin-bottom:36px;color:#c7d9f5;max-width:460px;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.hero-btns .btn-hero-primary{background:linear-gradient(135deg,var(--red),#e0002b);color:white;padding:15px 32px;border:none;border-radius:13px;font-size:16px;cursor:pointer;font-weight:700;box-shadow:0 12px 28px rgba(255,53,94,0.3);transition:.25s;font-family:'DM Sans',sans-serif;}
+.hero-btns .btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(255,53,94,0.4);}
+.hero-btns .btn-hero-secondary{background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.5);color:white;padding:15px 32px;border-radius:13px;font-size:16px;cursor:pointer;font-weight:600;transition:.25s;font-family:'DM Sans',sans-serif;backdrop-filter:blur(8px);}
+.hero-btns .btn-hero-secondary:hover{background:rgba(255,255,255,0.22);}
+.hero-visual{width:42%;z-index:2;position:relative;display:flex;justify-content:center;}
+.hero-card-float{background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.2);border-radius:24px;padding:32px;max-width:360px;width:100%;animation:float 5s ease-in-out infinite;}
+.hero-card-float .stat{display:flex;align-items:center;gap:14px;margin-bottom:20px;background:rgba(255,255,255,0.08);border-radius:14px;padding:14px 18px;}
+.hero-card-float .stat-icon{font-size:28px;}
+.hero-card-float .stat-label{font-size:13px;color:#a8c5f5;}
+.hero-card-float .stat-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;}
+@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-14px);}100%{transform:translateY(0);}}
+
+/* ===== SECTIONS ===== */
+section.page-section{padding:90px 6%;}
+.section-title{text-align:center;margin-bottom:56px;}
+.section-title h3{font-family:'Syne',sans-serif;font-size:40px;color:var(--blue);font-weight:800;margin-bottom:12px;}
+.section-title p{color:var(--muted);font-size:17px;}
+
+/* ===== CARDS GRID ===== */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;}
+.feat-card{background:var(--card);backdrop-filter:blur(12px);padding:28px;border-radius:20px;box-shadow:var(--shadow);transition:.35s;border:1px solid rgba(0,71,171,0.07);}
+.feat-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,71,171,0.15);}
+.feat-card .icon{font-size:36px;margin-bottom:14px;}
+.feat-card h4{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--blue);margin-bottom:10px;}
+.feat-card p{color:var(--muted);font-size:14px;line-height:1.65;}
+
+/* ===== FEED ===== */
+#feed-section{background:linear-gradient(180deg,#edf3ff 0%,#f4f7fb 100%);}
+.feed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
+.service-card{background:white;border-radius:20px;padding:26px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid #e8effa;transition:.3s;position:relative;overflow:hidden;}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,71,171,0.12);}
+.service-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--red));}
+.tag{display:inline-block;padding:5px 13px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.3px;}
+.tag-urgente{background:#fff0f3;color:var(--red);}
+.tag-hoje{background:#eff6ff;color:var(--blue);}
+.tag-normal{background:#f0fdf4;color:#16a34a;}
+.service-card h5{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin:14px 0 8px;}
+.service-card .service-desc{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:14px;}
+.service-meta{display:flex;gap:14px;font-size:13px;color:var(--muted);margin-bottom:18px;}
+.service-meta span{display:flex;align-items:center;gap:4px;}
+.service-price{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--blue);}
+.btn-pegar{width:100%;background:linear-gradient(135deg,var(--blue),#0062d4);color:white;border:none;padding:13px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:.25s;font-family:'DM Sans',sans-serif;margin-top:8px;}
+.btn-pegar:hover{background:var(--dark);transform:translateY(-2px);}
+.btn-pegar:disabled{background:#cbd5e1;cursor:not-allowed;transform:none;}
+
+/* ===== TÉCNICOS ===== */
+.tech-card{background:white;border-radius:20px;padding:26px;box-shadow:var(--shadow);text-align:center;transition:.3s;border:1px solid #e8effa;}
+.tech-card:hover{transform:translateY(-6px);}
+.tech-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block;border:3px solid var(--blue);}
+.tech-avatar-placeholder{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--red));display:flex;align-items:center;justify-content:center;color:white;font-size:28px;font-weight:700;margin:0 auto 14px;border:3px solid rgba(0,71,171,0.2);}
+.tech-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;}
+.tech-card .tech-role{color:var(--muted);font-size:13px;margin-bottom:12px;}
+.skills-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;}
+.skill-tag{background:#eff6ff;color:var(--blue);padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;}
+.tech-rating{font-size:13px;color:var(--muted);margin-bottom:14px;}
+.btn-ver{width:100%;background:transparent;border:2px solid var(--blue);color:var(--blue);padding:10px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-ver:hover{background:var(--blue);color:white;}
+
+/* ===== FOOTER ===== */
+footer{background:var(--dark);color:white;padding:50px 6%;text-align:center;}
+footer h2{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:8px;}
+footer p{color:#94a3b8;font-size:14px;}
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:9999;padding:20px;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:white;width:100%;max-width:520px;border-radius:24px;padding:36px;position:relative;max-height:90vh;overflow-y:auto;animation:slideUp .25s ease;}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.thinking-line{font-size:13px;color:var(--muted);padding:6px 12px;background:white;border-radius:8px;border:1px solid #e2e8f0;animation:fadeIn .3s ease;text-align:left;}
+.ia-tag{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;}
+.ia-tag-cat{background:#eff6ff;color:var(--blue);}
+.ia-tag-urg{background:#fff7ed;color:#ea580c;}
+.ia-tag-val{background:#f0fdf4;color:#16a34a;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;}
+.modal-header h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);}
+.modal-back{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:4px 8px;border-radius:8px;transition:.2s;}
+.modal-back:hover{background:#f1f5f9;color:var(--text);}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:8px;transition:.2s;}
+.modal-close:hover{background:#f1f5f9;color:var(--text);}
+.modal-steps{display:flex;gap:8px;margin-bottom:28px;}
+.step-dot{flex:1;height:4px;border-radius:4px;background:#e2e8f0;transition:.4s;}
+.step-dot.done{background:var(--blue);}
+.step-dot.active{background:linear-gradient(90deg,var(--blue),var(--red));}
+
+/* ===== INPUTS ===== */
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.field input,.field textarea,.field select{width:100%;padding:13px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:#fafcff;outline:none;transition:.25s;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--blue);background:white;box-shadow:0 0 0 4px rgba(0,71,171,0.08);}
+.field input.error{border-color:#ef4444;}
+.field input.ok{border-color:#22c55e;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.btn-full{width:100%;padding:14px;border-radius:13px;font-size:16px;font-weight:700;cursor:pointer;transition:.25s;font-family:'DM Sans',sans-serif;border:none;}
+.btn-full.blue{background:var(--blue);color:white;}
+.btn-full.blue:hover{background:var(--dark);}
+.btn-full.red{background:var(--red);color:white;}
+.btn-full.red:hover{opacity:.9;}
+.btn-full.outline{background:transparent;border:2px solid #e2e8f0;color:var(--muted);}
+.btn-full.outline:hover{border-color:var(--blue);color:var(--blue);}
+.or-divider{text-align:center;color:var(--muted);font-size:13px;margin:14px 0;position:relative;}
+.or-divider::before,.or-divider::after{content:"";position:absolute;top:50%;width:42%;height:1px;background:#e2e8f0;}
+.or-divider::before{left:0;}.or-divider::after{right:0;}
+
+/* ===== PERFIL ===== */
+.perfil-screen{display:none;min-height:100vh;padding-top:80px;}
+.perfil-screen.active{display:block;}
+.perfil-hero{background:linear-gradient(135deg,var(--blue),var(--dark));padding:50px 6% 80px;color:white;position:relative;}
+.perfil-avatar{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--red),#ff1744);display:flex;align-items:center;justify-content:center;color:white;font-size:38px;font-weight:800;margin-bottom:16px;border:4px solid rgba(255,255,255,0.3);font-family:'Syne',sans-serif;}
+.perfil-hero h2{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;margin-bottom:4px;}
+.perfil-hero p{color:#a8c5f5;font-size:15px;}
+.perfil-body{padding:0 6% 60px;margin-top:-40px;}
+.perfil-tabs{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap;}
+.ptab{padding:10px 22px;border-radius:20px;border:2px solid #e2e8f0;background:white;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;color:var(--muted);font-family:'DM Sans',sans-serif;}
+.ptab.active{background:var(--blue);color:white;border-color:var(--blue);}
+.ptab-pane{display:none;}
+.ptab-pane.active{display:block;}
+.info-card{background:white;border-radius:18px;padding:24px;box-shadow:var(--shadow);margin-bottom:20px;}
+.info-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #f1f5f9;}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f8fafc;font-size:14px;}
+.info-row:last-child{border:none;}
+.info-row span:first-child{color:var(--muted);}
+.info-row span:last-child{font-weight:600;color:var(--text);}
+.status-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;}
+.status-aberto{background:#fff7ed;color:#ea580c;}
+.status-andamento{background:#eff6ff;color:var(--blue);}
+.status-concluido{background:#f0fdf4;color:#16a34a;}
+.my-service-card{background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+.my-service-card h5{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;}
+.my-service-card p{color:var(--muted);font-size:13px;}
+
+/* ===== FLUXO SERVIÇO ===== */
+.checkout-step{display:none;}
+.checkout-step.active{display:block;}
+.price-breakdown{background:#f8fafc;border-radius:14px;padding:18px;margin-bottom:20px;}
+.price-row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;color:var(--muted);}
+.price-row.total{font-weight:700;color:var(--text);font-size:16px;border-top:1px solid #e2e8f0;margin-top:6px;padding-top:10px;}
+.payment-option{border:2px solid #e2e8f0;border-radius:14px;padding:16px 18px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:.2s;}
+.payment-option:hover{border-color:var(--blue);}
+.payment-option.selected{border-color:var(--blue);background:#f0f7ff;}
+.payment-option .pay-icon{font-size:28px;}
+.payment-option .pay-label{font-weight:600;font-size:14px;}
+.payment-option .pay-sub{font-size:12px;color:var(--muted);}
+.success-anim{text-align:center;padding:20px 0;}
+.success-anim .checkmark{font-size:72px;animation:pop .4s ease;}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
+.success-anim h3{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text);margin:16px 0 8px;}
+.success-anim p{color:var(--muted);font-size:15px;line-height:1.6;}
+
+/* ===== TOAST ===== */
+.toast{position:fixed;bottom:30px;right:30px;background:var(--dark);color:white;padding:14px 22px;border-radius:14px;font-size:14px;font-weight:600;z-index:99999;transform:translateY(80px);opacity:0;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,0.25);}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.green{background:#16a34a;}
+.toast.red{background:var(--red);}
+
+/* ===== ESCOLHA MODAL ===== */
+.choice-card{border:2px solid #e2e8f0;border-radius:16px;padding:22px 20px;cursor:pointer;display:flex;align-items:center;gap:16px;transition:.25s;margin-bottom:12px;}
+.choice-card:hover{border-color:var(--blue);background:#f0f7ff;}
+.choice-card .choice-icon{font-size:32px;}
+.choice-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin-bottom:2px;}
+.choice-card p{font-size:13px;color:var(--muted);}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero{flex-direction:column;text-align:center;gap:40px;padding:110px 6% 60px;}
+  .hero-text,.hero-visual{width:100%;}
+  .hero-text h2{font-size:40px;}
+  nav{display:none;}
+  .field-row{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  header{padding:14px 4%;}
+  .hero-text h2{font-size:32px;}
+  .modal-box{padding:24px 20px;border-radius:18px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo" onclick="irPara('home')">
+    <div class="logo-icon">🐸</div>
+    <h1>GRAB <span>Tech</span></h1>
+  </div>
+  <nav>
+    <a onclick="irPara('home');scrollTo('#funcionalidades')">Funcionalidades</a>
+    <a onclick="irPara('home');scrollTo('#servicos')">Serviços</a>
+    <a onclick="irPara('home');scrollTo('#feed-section')">Feed</a>
+    <a onclick="irPara('home');scrollTo('#tecnicos-section')">Técnicos</a>
+  </nav>
+  <div class="header-actions" id="headerActions">
+    <button class="btn-outline" onclick="abrirModal('modalLogin')">Entrar</button>
+    <button class="btn-primary" onclick="abrirModal('modalEscolha')">Cadastrar</button>
+  </div>
+</header>
+
+<!-- ===== TELA HOME ===== -->
+<div class="screen active" id="screen-home">
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-text">
+      <h2>Pegue o profissional certo em <span>minutos.</span></h2>
+      <p>Marketplace inteligente de serviços em TI. Conectamos clientes e técnicos qualificados com IA de triagem e feed em tempo real.</p>
+      <div class="hero-btns">
+        <button class="btn-hero-primary" onclick="abrirModal('modalEscolha')">🐸 Publicar Serviço</button>
+        <button class="btn-hero-secondary" onclick="document.getElementById('feed-section').scrollIntoView({behavior:'smooth'})">Explorar Feed</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-float">
+        <div class="stat"><span class="stat-icon">🛠️</span><div><div class="stat-label">Serviços ativos</div><div class="stat-val">1.240</div></div></div>
+        <div class="stat"><span class="stat-icon">👨‍💻</span><div><div class="stat-label">Técnicos cadastrados</div><div class="stat-val">530</div></div></div>
+        <div class="stat"><span class="stat-icon">⭐</span><div><div class="stat-label">Avaliação média</div><div class="stat-val">4.9</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNCIONALIDADES -->
+  <section class="page-section" id="funcionalidades">
+    <div class="section-title">
+      <h3>Funcionalidades</h3>
+      <p>Marketplace + Rede Social + IA + Serviços Tech</p>
+    </div>
+    <div class="cards-grid">
+      <div class="feat-card"><div class="icon">🐸</div><h4>Feed Inteligente</h4><p>Serviços em formato de feed moderno, com filtros por categoria, urgência e localização.</p></div>
+      <div class="feat-card"><div class="icon">⚡</div><h4>Match Profissional</h4><p>Técnicos demonstram interesse em serviços abertos. Clientes escolhem o melhor perfil.</p></div>
+      <div class="feat-card"><div class="icon">🧠</div><h4>IA de Triagem</h4><p>Diagnóstico prévio inteligente antes de publicar. Categoriza e prioriza automaticamente.</p></div>
+      <div class="feat-card"><div class="icon">🔗</div><h4>Perfil Integrado</h4><p>Conecte LinkedIn, GitHub e Instagram. Portfólio completo em um só lugar.</p></div>
+      <div class="feat-card"><div class="icon">💳</div><h4>Pagamento Seguro</h4><p>Pagamento via Pix, cartão ou boleto com liberação somente após conclusão do serviço.</p></div>
+      <div class="feat-card"><div class="icon">⭐</div><h4>Avaliações</h4><p>Sistema de reputação para clientes e técnicos. Transparência total em cada contratação.</p></div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="page-section" id="servicos" style="background:#f8fbff;">
+    <div class="section-title">
+      <h3>Serviços Disponíveis</h3>
+      <p>Tudo em tecnologia em um só lugar.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="feat-card"><div class="icon">💻</div><h4>Desenvolvimento Web</h4><p>Sites, APIs, sistemas e plataformas completas.</p></div>
+      <div class="feat-card"><div class="icon">🛠️</div><h4>Suporte Técnico</h4><p>Manutenção, upgrades e resolução de problemas.</p></div>
+      <div class="feat-card"><div class="icon">🎨</div><h4>Design Gráfico</h4><p>Identidade visual, UI/UX e social media.</p></div>
+      <div class="feat-card"><div class="icon">☁️</div><h4>Cloud & Infra</h4><p>Servidores, redes e arquitetura em nuvem.</p></div>
+    </div>
+  </section>
+
+  <!-- FEED PÚBLICO -->
+  <section class="page-section" id="feed-section">
+    <div class="section-title">
+      <h3>Feed de Serviços</h3>
+      <p>Explore solicitações abertas — cadastre-se para pegar um serviço.</p>
+    </div>
+    <div class="feed-grid" id="feedPublico"></div>
+  </section>
+
+  <!-- TÉCNICOS -->
+  <section class="page-section" id="tecnicos-section">
+    <div class="section-title">
+      <h3>Técnicos em Destaque</h3>
+      <p>Profissionais qualificados prontos para atender.</p>
+    </div>
+    <div class="cards-grid" id="techGrid"></div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="page-section" id="sobre" style="background:linear-gradient(135deg,var(--blue),var(--dark));color:white;text-align:center;">
+    <h3 style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;margin-bottom:14px;">Sobre a GRAB</h3>
+    <p style="max-width:560px;margin:0 auto;font-size:17px;line-height:1.75;color:#c7d9f5;">Plataforma desenvolvida pela LookTech para revolucionar a contratação de serviços em tecnologia. Conectamos quem precisa com quem entrega.</p>
+  </section>
+
+  <footer>
+    <h2>🐸 GRAB Technology</h2>
+    <p>Plataforma desenvolvida pela LookTech © 2025</p>
+  </footer>
+</div>
+
+<!-- ===== TELA PERFIL CLIENTE ===== -->
+<div class="perfil-screen" id="screen-cliente">
+  <div class="perfil-hero">
+    <div class="perfil-avatar" id="clienteAvatar">?</div>
+    <h2 id="clienteNomeDisplay">—</h2>
+    <p>👤 Cliente · <span id="clienteCidadeDisplay">—</span></p>
+  </div>
+  <div class="perfil-body">
+    <div class="perfil-tabs">
+      <button class="ptab active" onclick="abaCliente('feed')">🐸 Feed</button>
+      <button class="ptab" onclick="abaCliente('meus')">📋 Meus Serviços</button>
+      <button class="ptab" onclick="abaCliente('dados')">👤 Dados</button>
+    </div>
+
+    <!-- ABA FEED -->
+    <div class="ptab-pane active" id="aba-feed">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+        <h3 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;">Feed de Serviços</h3>
+        <button class="btn-red" onclick="abrirModal('modalPublicar')">+ Publicar Serviço</button>
+      </div>
+      <div class="feed-grid" id="feedCliente"></div>
+    </div>
+
+    <!-- ABA MEUS -->
+    <div class="ptab-pane" id="aba-meus">
+      <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:18px;">Meus Serviços Publicados</h3>
+      <div id="meusServicosLista"><p style="color:var(--muted);">Nenhum serviço publicado ainda.</p></div>
+    </div>
+
+    <!-- ABA DADOS -->
+    <div class="ptab-pane" id="aba-dados">
+      <div class="info-card">
+        <h4>Informações da Conta</h4>
+        <div class="info-row"><span>Nome</span><span id="dadoNome">—</span></div>
+        <div class="info-row"><span>Email</span><span id="dadoEmail">—</span></div>
+        <div class="info-row"><span>Telefone</span><span id="dadoTelefone">—</span></div>
+        <div class="info-row"><span>Tipo</span><span>Cliente</span></div>
+      </div>
+      <button class="btn-full outline" onclick="sair()" style="margin-top:8px;">Sair da conta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TELA PERFIL TÉCNICO ===== -->
+<div class="perfil-screen" id="screen-tecnico">
+  <div class="perfil-hero">
+    <div class="perfil-avatar" id="tecAvatar">?</div>
+    <h2 id="tecNomeDisplay">—</h2>
+    <p>🔧 Técnico · <span id="tecEspecDisplay">—</span></p>
+  </div>
+  <div class="perfil-body">
+    <div class="perfil-tabs">
+      <button class="ptab active" onclick="abaTecnico('oport')">⚡ Oportunidades</button>
+      <button class="ptab" onclick="abaTecnico('andamento')">📋 Em Andamento</button>
+      <button class="ptab" onclick="abaTecnico('dados')">👤 Perfil</button>
+    </div>
+
+    <!-- ABA OPORTUNIDADES -->
+    <div class="ptab-pane active" id="tab-oport">
+      <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:18px;">Serviços Disponíveis</h3>
+      <div class="feed-grid" id="feedTecnico"></div>
+    </div>
+
+    <!-- ABA ANDAMENTO -->
+    <div class="ptab-pane" id="tab-andamento">
+      <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:18px;">Serviços em Andamento</h3>
+      <div id="servicosAndamento"><p style="color:var(--muted);">Nenhum serviço em andamento.</p></div>
+    </div>
+
+    <!-- ABA DADOS -->
+    <div class="ptab-pane" id="tab-dados">
+      <div class="info-card">
+        <h4>Perfil Profissional</h4>
+        <div class="info-row"><span>Nome</span><span id="tecDadoNome">—</span></div>
+        <div class="info-row"><span>Email</span><span id="tecDadoEmail">—</span></div>
+        <div class="info-row"><span>Especialidade</span><span id="tecDadoEspec">—</span></div>
+        <div class="info-row"><span>LinkedIn</span><span id="tecDadoLi">—</span></div>
+        <div class="info-row"><span>GitHub</span><span id="tecDadoGh">—</span></div>
+        <div class="info-row"><span>Bio</span><span id="tecDadoBio">—</span></div>
+      </div>
+      <button class="btn-full outline" onclick="sair()" style="margin-top:8px;">Sair da conta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================
+     MODAIS
+============================= -->
+
+<!-- MODAL ESCOLHA -->
+<div class="modal-overlay" id="modalEscolha">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Como deseja entrar?</h2>
+      <button class="modal-close" onclick="fecharModal('modalEscolha')">✕</button>
+    </div>
+    <div class="choice-card" onclick="trocarModal('modalEscolha','modalCliente')">
+      <span class="choice-icon">👤</span>
+      <div><h4>Sou Cliente</h4><p>Preciso contratar um profissional de TI</p></div>
+    </div>
+    <div class="choice-card" onclick="trocarModal('modalEscolha','modalTecnico')">
+      <span class="choice-icon">🔧</span>
+      <div><h4>Sou Técnico</h4><p>Quero oferecer meus serviços de TI</p></div>
+    </div>
+    <div class="or-divider">já tem conta?</div>
+    <button class="btn-full outline" onclick="trocarModal('modalEscolha','modalLogin')">Fazer Login</button>
+  </div>
+</div>
+
+<!-- MODAL LOGIN -->
+<div class="modal-overlay" id="modalLogin">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Entrar na GRAB</h2>
+      <button class="modal-close" onclick="fecharModal('modalLogin')">✕</button>
+    </div>
+    <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="seu@email.com"></div>
+    <div class="field"><label>Senha</label><input type="password" id="loginSenha" placeholder="••••••••"></div>
+    <button class="btn-full blue" onclick="fazerLogin()" style="margin-top:6px;">Entrar</button>
+    <div class="or-divider">não tem conta?</div>
+    <button class="btn-full outline" onclick="trocarModal('modalLogin','modalEscolha')">Criar conta grátis</button>
+  </div>
+</div>
+
+<!-- MODAL CADASTRO CLIENTE -->
+<div class="modal-overlay" id="modalCliente">
+  <div class="modal-box">
+    <div class="modal-header">
+      <button class="modal-back" onclick="trocarModal('modalCliente','modalEscolha')">←</button>
+      <h2>Cadastro Cliente</h2>
+      <button class="modal-close" onclick="fecharModal('modalCliente')">✕</button>
+    </div>
+    <div class="modal-steps"><div class="step-dot active" id="cs1"></div><div class="step-dot" id="cs2"></div><div class="step-dot" id="cs3"></div></div>
+
+    <!-- STEP 1 -->
+    <div class="checkout-step active" id="cStep1">
+      <div class="field"><label>Nome completo</label><input type="text" id="cNome" placeholder="Seu nome"></div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input type="email" id="cEmail" placeholder="email@exemplo.com"></div>
+        <div class="field"><label>Telefone</label><input type="text" id="cTelefone" placeholder="(11) 91234-5678"></div>
+      </div>
+      <div class="field"><label>Cidade</label><input type="text" id="cCidade" placeholder="Ex: São Paulo"></div>
+      <button class="btn-full blue" onclick="cliStep(2)">Continuar →</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="checkout-step" id="cStep2">
+      <div class="field"><label>Senha</label><input type="password" id="cSenha" placeholder="Min. 6 caracteres"></div>
+      <div class="field"><label>Confirmar senha</label><input type="password" id="cConfirma" placeholder="Repita a senha"></div>
+      <button class="btn-full blue" onclick="cliStep(3)">Continuar →</button>
+      <button class="btn-full outline" style="margin-top:10px;" onclick="cliStep(1)">← Voltar</button>
+    </div>
+
+    <!-- STEP 3 - IA TRIAGEM -->
+    <div class="checkout-step" id="cStep3">
+      <!-- ESTADO: INPUT -->
+      <div id="iaInput">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="font-size:48px;margin-bottom:10px;">🧠</div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">Quase lá! Qual o seu primeiro problema?</h3>
+          <p style="color:var(--muted);font-size:14px;margin-top:6px;">Nossa IA analisa e encontra o profissional certo para você.</p>
+        </div>
+        <div class="field"><label>Descreva o problema com detalhes</label><textarea id="cProblema" rows="4" placeholder="Ex: Meu notebook Dell está muito lento, demora 5 minutos para ligar e trava ao abrir o Chrome..."></textarea></div>
+        <button class="btn-full blue" onclick="analisarComIA()">🧠 Analisar com IA →</button>
+        <button class="btn-full outline" style="margin-top:10px;" onclick="cliStep(2)">← Voltar</button>
+        <button class="btn-full outline" style="margin-top:8px;font-size:13px;" onclick="finalizarCadastroCliente(null)">Pular esta etapa</button>
+      </div>
+
+      <!-- ESTADO: LOADING -->
+      <div id="iaLoading" style="display:none;text-align:center;padding:30px 0;">
+        <div style="font-size:48px;margin-bottom:16px;animation:spin 1.5s linear infinite;display:inline-block;">⚙️</div>
+        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:8px;">Analisando seu problema...</h3>
+        <p style="color:var(--muted);font-size:14px;">A IA está categorizando e buscando o técnico ideal.</p>
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;" id="iaThinking"></div>
+      </div>
+
+      <!-- ESTADO: RESULTADO -->
+      <div id="iaResultado" style="display:none;">
+        <div style="text-align:center;margin-bottom:18px;">
+          <div style="font-size:36px;margin-bottom:8px;">✅</div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;">Diagnóstico prévio pronto!</h3>
+        </div>
+        <div id="iaCard" style="background:linear-gradient(135deg,#f0f7ff,#e8f4ff);border:1px solid #bfdbfe;border-radius:16px;padding:20px;margin-bottom:16px;">
+          <div id="iaTexto" style="font-size:14px;color:#1e3a5f;line-height:1.75;"></div>
+        </div>
+        <div id="iaTags" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;"></div>
+        <button class="btn-full blue" onclick="finalizarCadastroClienteComIA()">🐸 Criar conta e publicar serviço</button>
+        <button class="btn-full outline" style="margin-top:10px;" onclick="resetIA()">Refazer análise</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CADASTRO TÉCNICO -->
+<div class="modal-overlay" id="modalTecnico">
+  <div class="modal-box">
+    <div class="modal-header">
+      <button class="modal-back" onclick="trocarModal('modalTecnico','modalEscolha')">←</button>
+      <h2>Cadastro Técnico</h2>
+      <button class="modal-close" onclick="fecharModal('modalTecnico')">✕</button>
+    </div>
+    <div class="modal-steps"><div class="step-dot active" id="ts1"></div><div class="step-dot" id="ts2"></div><div class="step-dot" id="ts3"></div></div>
+
+    <!-- STEP 1 -->
+    <div class="checkout-step active" id="tStep1">
+      <div class="field"><label>Nome completo</label><input type="text" id="tNome" placeholder="Seu nome"></div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input type="email" id="tEmail" placeholder="email@exemplo.com"></div>
+        <div class="field"><label>Telefone</label><input type="text" id="tTelefone" placeholder="(11) 91234-5678"></div>
+      </div>
+      <div class="field"><label>Especialidade principal</label>
+        <select id="tEspec"><option value="">Selecione</option><option>Desenvolvimento Web</option><option>Suporte Técnico</option><option>Design Gráfico / UI-UX</option><option>Cloud & Infraestrutura</option><option>Data Science / IA</option><option>Mobile (iOS / Android)</option></select>
+      </div>
+      <button class="btn-full blue" onclick="tecStep(2)">Continuar →</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="checkout-step" id="tStep2">
+      <div class="field"><label>Bio profissional</label><textarea id="tBio" rows="3" placeholder="Fale sobre sua experiência..."></textarea></div>
+      <div class="field"><label>LinkedIn (opcional)</label><input type="text" id="tLinkedin" placeholder="linkedin.com/in/..."></div>
+      <div class="field"><label>GitHub (opcional)</label><input type="text" id="tGithub" placeholder="github.com/..."></div>
+      <button class="btn-full blue" onclick="tecStep(3)">Continuar →</button>
+      <button class="btn-full outline" style="margin-top:10px;" onclick="tecStep(1)">← Voltar</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="checkout-step" id="tStep3">
+      <div class="field"><label>Senha</label><input type="password" id="tSenha" placeholder="Min. 6 caracteres"></div>
+      <div class="field"><label>Confirmar senha</label><input type="password" id="tConfirma" placeholder="Repita a senha"></div>
+      <div style="background:#f0f7ff;border-radius:14px;padding:16px;margin-bottom:18px;font-size:14px;color:var(--blue);">
+        ✅ Seu perfil ficará visível no feed de técnicos após aprovação.
+      </div>
+      <button class="btn-full blue" onclick="finalizarCadastroTecnico()">🐸 Criar perfil técnico</button>
+      <button class="btn-full outline" style="margin-top:10px;" onclick="tecStep(2)">← Voltar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PUBLICAR SERVIÇO -->
+<div class="modal-overlay" id="modalPublicar">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Publicar Serviço</h2>
+      <button class="modal-close" onclick="fecharModal('modalPublicar')">✕</button>
+    </div>
+    <div class="field"><label>Título do serviço</label><input type="text" id="pubTitulo" placeholder="Ex: Loja virtual React + Node"></div>
+    <div class="field"><label>Categoria</label>
+      <select id="pubCategoria"><option value="">Selecione</option><option>Desenvolvimento Web</option><option>Suporte Técnico</option><option>Design Gráfico / UI-UX</option><option>Cloud & Infraestrutura</option><option>Data Science / IA</option><option>Mobile</option></select>
+    </div>
+    <div class="field"><label>Descrição detalhada</label><textarea id="pubDesc" rows="4" placeholder="Descreva o que precisa ser feito..."></textarea></div>
+    <div class="field-row">
+      <div class="field"><label>Orçamento (R$)</label><input type="number" id="pubValor" placeholder="0,00"></div>
+      <div class="field"><label>Urgência</label>
+        <select id="pubUrgencia"><option value="">Selecione</option><option value="urgente">🔴 Urgente</option><option value="hoje">🟡 Esta semana</option><option value="normal">🟢 Sem pressa</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Cidade / Local</label><input type="text" id="pubCidade" placeholder="Ex: São Paulo - SP"></div>
+    <button class="btn-full red" onclick="publicarServico()">🐸 Publicar Serviço</button>
+  </div>
+</div>
+
+<!-- MODAL PEGAR SERVIÇO (fluxo completo) -->
+<div class="modal-overlay" id="modalPegar">
+  <div class="modal-box" style="max-width:560px;">
+    <div class="modal-header">
+      <button class="modal-back" id="btnVoltarPegar" onclick="voltarEtapaPegar()">←</button>
+      <h2 id="pegarTitle">Detalhes do Serviço</h2>
+      <button class="modal-close" onclick="fecharModal('modalPegar')">✕</button>
+    </div>
+    <div class="modal-steps">
+      <div class="step-dot active" id="ps1"></div>
+      <div class="step-dot" id="ps2"></div>
+      <div class="step-dot" id="ps3"></div>
+      <div class="step-dot" id="ps4"></div>
+    </div>
+
+    <!-- ETAPA 1: INFO -->
+    <div class="checkout-step active" id="pStep1">
+      <div id="servicoDetalhe"></div>
+      <button class="btn-full blue" style="margin-top:16px;" onclick="pegarStep(2)">Tenho interesse →</button>
+    </div>
+
+    <!-- ETAPA 2: PROPOSTA -->
+    <div class="checkout-step" id="pStep2">
+      <div class="field"><label>Sua proposta de valor (R$)</label><input type="number" id="propValor" placeholder="Valor que cobrarás"></div>
+      <div class="field"><label>Prazo estimado</label>
+        <select id="propPrazo"><option value="">Selecione</option><option>Mesmo dia</option><option>2-3 dias</option><option>1 semana</option><option>2 semanas</option><option>1 mês ou mais</option></select>
+      </div>
+      <div class="field"><label>Mensagem para o cliente</label><textarea id="propMsg" rows="3" placeholder="Apresente-se e explique sua abordagem..."></textarea></div>
+      <button class="btn-full blue" onclick="pegarStep(3)">Enviar proposta →</button>
+    </div>
+
+    <!-- ETAPA 3: PAGAMENTO -->
+    <div class="checkout-step" id="pStep3">
+      <div class="price-breakdown" id="priceBreakdown"></div>
+      <p style="font-size:14px;font-weight:600;margin-bottom:12px;color:var(--text);">Forma de pagamento:</p>
+      <div class="payment-option selected" id="pay-pix" onclick="selecionarPag('pix')">
+        <span class="pay-icon">⚡</span><div><div class="pay-label">Pix</div><div class="pay-sub">Aprovação imediata · Sem taxas</div></div>
+      </div>
+      <div class="payment-option" id="pay-cartao" onclick="selecionarPag('cartao')">
+        <span class="pay-icon">💳</span><div><div class="pay-label">Cartão de Crédito</div><div class="pay-sub">Parcelamento em até 12x · 3% de taxa</div></div>
+      </div>
+      <div class="payment-option" id="pay-boleto" onclick="selecionarPag('boleto')">
+        <span class="pay-icon">🧾</span><div><div class="pay-label">Boleto Bancário</div><div class="pay-sub">Vencimento em 3 dias úteis</div></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:12px 0 16px;">🔒 Pagamento liberado ao técnico somente após confirmação do cliente.</p>
+      <button class="btn-full blue" onclick="pegarStep(4)">Confirmar e pagar →</button>
+    </div>
+
+    <!-- ETAPA 4: SUCESSO -->
+    <div class="checkout-step" id="pStep4">
+      <div class="success-anim">
+        <div class="checkmark">✅</div>
+        <h3>Serviço confirmado!</h3>
+        <p>O técnico recebeu sua confirmação. Acompanhe o andamento na aba <strong>Em Andamento</strong>.</p>
+        <div style="background:#f0fdf4;border-radius:14px;padding:16px;margin:20px 0;text-align:left;">
+          <p style="font-size:14px;color:#166534;font-weight:600;">📋 Próximos passos:</p>
+          <p style="font-size:13px;color:#15803d;margin-top:6px;line-height:1.7;">1. Técnico entrará em contato em até 2h<br>2. Alinhem o escopo e prazo<br>3. Serviço é executado<br>4. Você aprova e libera o pagamento</p>
+        </div>
+        <button class="btn-full blue" onclick="fecharModal('modalPegar')">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TÉCNICO PEGAR (técnico aceita serviço) -->
+<div class="modal-overlay" id="modalTecPegar">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Candidatar-se ao Serviço</h2>
+      <button class="modal-close" onclick="fecharModal('modalTecPegar')">✕</button>
+    </div>
+    <div id="tecPegarDetalhe"></div>
+    <div class="field" style="margin-top:16px;"><label>Valor que cobrarei (R$)</label><input type="number" id="tecPropVal" placeholder="Sua proposta"></div>
+    <div class="field"><label>Mensagem ao cliente</label><textarea id="tecPropMsg" rows="3" placeholder="Explique por que você é o certo para esse serviço..."></textarea></div>
+    <button class="btn-full blue" onclick="tecCandidatar()">🐸 Enviar candidatura</button>
+  </div>
+</div>
+
+<script>
+// ===================== ESTADO =====================
+let usuario = null; // {tipo:'cliente'|'tecnico', nome, email, ...}
+let servicoAtual = null; // serviço sendo visualizado
+let pagSelecionado = 'pix';
+let etapaPegar = 1;
+let meusServicos = [];
+let servicosAndamentoList = [];
+
+// ===================== SERVIÇOS BASE =====================
+let todosServicos = [
+  {id:1, titulo:'Loja Virtual Completa',desc:'Cliente busca desenvolvedor React para e-commerce com carrinho, pagamento e painel admin.',categoria:'Desenvolvimento Web',valor:3500,cidade:'São Paulo - SP',urgencia:'urgente',status:'aberto',cliente:'João Silva'},
+  {id:2, titulo:'Notebook Superaquecendo',desc:'Precisa de suporte técnico urgente. Limpeza interna, pasta térmica e diagnóstico completo.',categoria:'Suporte Técnico',valor:250,cidade:'Campinas - SP',urgencia:'hoje',status:'aberto',cliente:'Maria Souza'},
+  {id:3, titulo:'Identidade Visual para Startup',desc:'Logo, paleta de cores, tipografia e templates para redes sociais. Briefing disponível.',categoria:'Design Gráfico / UI-UX',valor:1800,cidade:'Remoto',urgencia:'normal',status:'aberto',cliente:'Pedro Alves'},
+  {id:4, titulo:'Migração para AWS',desc:'Migrar aplicação Node.js + PostgreSQL para EC2 + RDS. Configurar load balancer e backups.',categoria:'Cloud & Infraestrutura',valor:4200,cidade:'Remoto',urgencia:'hoje',status:'aberto',cliente:'Ana Lima'},
+  {id:5, titulo:'App Mobile de Delivery',desc:'Aplicativo React Native para delivery local. Telas: cardápio, pedido, rastreio, pagamento.',categoria:'Mobile',valor:6500,cidade:'Rio de Janeiro - RJ',urgencia:'normal',status:'aberto',cliente:'Carlos Melo'},
+  {id:6, titulo:'Dashboard de BI',desc:'Power BI conectado ao banco MySQL da empresa. 5 relatórios definidos. Treinamento incluído.',categoria:'Data Science / IA',valor:2800,cidade:'Belo Horizonte - MG',urgencia:'urgente',status:'aberto',cliente:'Fernanda Cruz'},
+];
+
+let tecnicos = [
+  {nome:'Will Frontarolli',role:'Desenvolvedor Full Stack',skills:['React','Node','UI/UX'],rating:'4.9',servicos:124,foto:'https://i.pravatar.cc/150?img=12'},
+  {nome:'Gabriela de Oliveira',role:'Designer UX/UI',skills:['Figma','Branding','UX'],rating:'5.0',servicos:210,foto:'https://i.pravatar.cc/150?img=32'},
+  {nome:'Rafael Costa',role:'Cloud Engineer',skills:['AWS','Docker','Linux'],rating:'4.8',servicos:88,foto:'https://i.pravatar.cc/150?img=54'},
+];
+
+// ===================== TELAS =====================
+function irPara(tela){
+  document.querySelectorAll('.screen,.perfil-screen').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById('screen-'+tela);
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function scrollTo(sel){
+  setTimeout(()=>{const el=document.querySelector(sel);if(el)el.scrollIntoView({behavior:'smooth'});},100);
+}
+
+// ===================== MODAIS =====================
+function abrirModal(id){document.getElementById(id).classList.add('open');}
+function fecharModal(id){document.getElementById(id).classList.remove('open');}
+function trocarModal(fecha,abre){fecharModal(fecha);setTimeout(()=>abrirModal(abre),120);}
+
+// fechar clicando fora
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
+});
+
+// ===================== TOAST =====================
+function showToast(msg,tipo=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+(tipo||'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ===================== HEADER =====================
+function atualizarHeader(){
+  const ha=document.getElementById('headerActions');
+  if(usuario){
+    const ini=usuario.nome.charAt(0).toUpperCase();
+    ha.innerHTML=`<div class="avatar-mini" onclick="irParaPerfil()" title="Meu Perfil">${ini}</div>
+    <button class="btn-outline" onclick="sair()">Sair</button>`;
+  } else {
+    ha.innerHTML=`<button class="btn-outline" onclick="abrirModal('modalLogin')">Entrar</button>
+    <button class="btn-primary" onclick="abrirModal('modalEscolha')">Cadastrar</button>`;
+  }
+}
+
+function irParaPerfil(){
+  if(!usuario) return;
+  if(usuario.tipo==='cliente') irPara('cliente');
+  else irPara('tecnico');
+}
+
+// ===================== LOGIN =====================
+function fazerLogin(){
+  const e=document.getElementById('loginEmail').value.trim();
+  const s=document.getElementById('loginSenha').value;
+  if(!e||!s){showToast('Preencha email e senha.','red');return;}
+  // Simula login como cliente demo
+  usuario={tipo:'cliente',nome:'Demo Cliente',email:e,telefone:'(11) 91234-5678',cidade:'São Paulo'};
+  fecharModal('modalLogin');
+  finalizarSessao();
+}
+
+// ===================== CADASTRO CLIENTE =====================
+let cStepAtual=1;
+function cliStep(n){
+  // Validações
+  if(n===2){
+    const nome=document.getElementById('cNome').value.trim();
+    const email=document.getElementById('cEmail').value.trim();
+    const tel=document.getElementById('cTelefone').value.trim();
+    if(!nome||nome.length<2){showToast('Digite um nome válido.','red');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('Digite um email válido.','red');return;}
+    if(!tel){showToast('Digite um telefone.','red');return;}
+  }
+  if(n===3){
+    const s=document.getElementById('cSenha').value;
+    const c=document.getElementById('cConfirma').value;
+    if(s.length<6){showToast('Senha mínima 6 caracteres.','red');return;}
+    if(s!==c){showToast('Senhas não conferem.','red');return;}
+  }
+  document.getElementById('cStep'+cStepAtual).classList.remove('active');
+  cStepAtual=n;
+  document.getElementById('cStep'+n).classList.add('active');
+  ['cs1','cs2','cs3'].forEach((id,i)=>{
+    const d=document.getElementById(id);
+    d.classList.remove('active','done');
+    if(i+1<n) d.classList.add('done');
+    else if(i+1===n) d.classList.add('active');
+  });
+}
+
+// Resultado IA guardado entre steps
+let iaResultadoData = null;
+
+async function analisarComIA(){
+  const problema = document.getElementById('cProblema').value.trim();
+  if(!problema || problema.length < 10){
+    showToast('Descreva o problema com pelo menos 10 caracteres.','red');
+    return;
+  }
+
+  // Mostra loading
+  document.getElementById('iaInput').style.display='none';
+  document.getElementById('iaLoading').style.display='block';
+  document.getElementById('iaResultado').style.display='none';
+
+  // Simula thinking lines progressivas
+  const thinking = document.getElementById('iaThinking');
+  thinking.innerHTML='';
+  const steps = [
+    '🔍 Lendo a descrição do problema...',
+    '📁 Identificando categoria do serviço...',
+    '⚡ Avaliando urgência e complexidade...',
+    '💰 Estimando faixa de preço...',
+    '👨‍💻 Selecionando perfil de técnico ideal...',
+  ];
+  for(let i=0;i<steps.length;i++){
+    await new Promise(r=>setTimeout(r,500));
+    const div=document.createElement('div');
+    div.className='thinking-line';
+    div.textContent=steps[i];
+    thinking.appendChild(div);
+  }
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`Você é a IA de triagem da GRAB Technology, plataforma de marketplace de serviços de TI no Brasil.
+Analise o problema do cliente e responda APENAS com JSON válido, sem markdown, sem texto fora do JSON.
+
+Formato exato:
+{
+  "titulo": "título curto e claro do serviço (máx 8 palavras)",
+  "categoria": "uma de: Desenvolvimento Web | Suporte Técnico | Design Gráfico / UI-UX | Cloud & Infraestrutura | Data Science / IA | Mobile",
+  "urgencia": "urgente | hoje | normal",
+  "urgencia_label": "frase curta explicando a urgência",
+  "valor_min": número em reais sem formatação,
+  "valor_max": número em reais sem formatação,
+  "diagnostico": "diagnóstico em 2-3 frases: o que provavelmente é o problema, o que o técnico precisará fazer, e uma dica rápida para o cliente",
+  "perfil_tecnico": "descrição em 1 frase do perfil ideal do técnico para este serviço",
+  "tempo_estimado": "estimativa de tempo para resolução"
+}`,
+        messages:[{role:'user',content:`Problema do cliente: ${problema}`}]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content.map(b=>b.text||'').join('');
+
+    let json;
+    try {
+      const clean = text.replace(/```json|```/g,'').trim();
+      json = JSON.parse(clean);
+    } catch(e){
+      throw new Error('Resposta inválida da IA');
+    }
+
+    iaResultadoData = json;
+
+    // Renderiza resultado
+    document.getElementById('iaLoading').style.display='none';
+    document.getElementById('iaResultado').style.display='block';
+
+    document.getElementById('iaTexto').innerHTML=`
+      <p style="font-weight:700;font-size:15px;color:#0f172a;margin-bottom:10px;">🔎 ${json.titulo}</p>
+      <p style="margin-bottom:8px;"><strong>Diagnóstico:</strong> ${json.diagnostico}</p>
+      <p style="margin-bottom:8px;"><strong>Técnico ideal:</strong> ${json.perfil_tecnico}</p>
+      <p><strong>Tempo estimado:</strong> ${json.tempo_estimado}</p>
+    `;
+
+    const urgEmoji = json.urgencia==='urgente'?'🔴':json.urgencia==='hoje'?'🟡':'🟢';
+    document.getElementById('iaTags').innerHTML=`
+      <span class="ia-tag ia-tag-cat">📁 ${json.categoria}</span>
+      <span class="ia-tag ia-tag-urg">${urgEmoji} ${json.urgencia_label}</span>
+      <span class="ia-tag ia-tag-val">💰 R$ ${json.valor_min.toLocaleString('pt-BR')} – R$ ${json.valor_max.toLocaleString('pt-BR')}</span>
+    `;
+
+  } catch(err){
+    document.getElementById('iaLoading').style.display='none';
+    document.getElementById('iaInput').style.display='block';
+    showToast('Erro na IA. Tente novamente ou pule esta etapa.','red');
+    console.error(err);
+  }
+}
+
+function resetIA(){
+  iaResultadoData=null;
+  document.getElementById('iaResultado').style.display='none';
+  document.getElementById('iaInput').style.display='block';
+}
+
+function finalizarCadastroClienteComIA(){
+  finalizarCadastroCliente(iaResultadoData);
+}
+
+function finalizarCadastroCliente(ia){
+  const problema=document.getElementById('cProblema').value.trim();
+  usuario={
+    tipo:'cliente',
+    nome:document.getElementById('cNome').value.trim(),
+    email:document.getElementById('cEmail').value.trim(),
+    telefone:document.getElementById('cTelefone').value.trim(),
+    cidade:document.getElementById('cCidade').value.trim()||'—',
+  };
+  fecharModal('modalCliente');
+  finalizarSessao();
+  if(problema && ia){
+    const s={
+      id:Date.now(),
+      titulo:ia.titulo||'Serviço via IA',
+      desc:problema,
+      categoria:ia.categoria||'Suporte Técnico',
+      valor:ia.valor_min||0,
+      cidade:usuario.cidade,
+      urgencia:ia.urgencia||'normal',
+      status:'aberto',
+      cliente:usuario.nome
+    };
+    todosServicos.unshift(s); meusServicos.unshift(s);
+    renderFeedCliente(); renderMeusServicos(); renderFeedPublico();
+    showToast('Serviço publicado com diagnóstico da IA! 🧠','green');
+  } else if(problema){
+    const s={id:Date.now(),titulo:'Serviço via IA',desc:problema,categoria:'Suporte Técnico',valor:0,cidade:usuario.cidade,urgencia:'normal',status:'aberto',cliente:usuario.nome};
+    todosServicos.unshift(s); meusServicos.unshift(s);
+    renderFeedCliente(); renderMeusServicos(); renderFeedPublico();
+  }
+  // Reset IA state para próximo uso
+  iaResultadoData=null;
+  resetIA && resetIA();
+}
+
+// ===================== CADASTRO TÉCNICO =====================
+let tStepAtual=1;
+function tecStep(n){
+  if(n===2){
+    const nome=document.getElementById('tNome').value.trim();
+    const email=document.getElementById('tEmail').value.trim();
+    const espec=document.getElementById('tEspec').value;
+    if(!nome||nome.length<2){showToast('Digite um nome válido.','red');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('Digite um email válido.','red');return;}
+    if(!espec){showToast('Selecione sua especialidade.','red');return;}
+  }
+  if(n===3){
+    // bio opcional, mas deve ter
+  }
+  document.getElementById('tStep'+tStepAtual).classList.remove('active');
+  tStepAtual=n;
+  document.getElementById('tStep'+n).classList.add('active');
+  ['ts1','ts2','ts3'].forEach((id,i)=>{
+    const d=document.getElementById(id);
+    d.classList.remove('active','done');
+    if(i+1<n) d.classList.add('done');
+    else if(i+1===n) d.classList.add('active');
+  });
+}
+
+function finalizarCadastroTecnico(){
+  const s=document.getElementById('tSenha').value;
+  const c=document.getElementById('tConfirma').value;
+  if(s.length<6){showToast('Senha mínima 6 caracteres.','red');return;}
+  if(s!==c){showToast('Senhas não conferem.','red');return;}
+  usuario={
+    tipo:'tecnico',
+    nome:document.getElementById('tNome').value.trim(),
+    email:document.getElementById('tEmail').value.trim(),
+    telefone:document.getElementById('tTelefone').value.trim(),
+    especialidade:document.getElementById('tEspec').value,
+    bio:document.getElementById('tBio').value.trim(),
+    linkedin:document.getElementById('tLinkedin').value.trim(),
+    github:document.getElementById('tGithub').value.trim(),
+  };
+  fecharModal('modalTecnico');
+  finalizarSessao();
+}
+
+// ===================== PÓS LOGIN/CADASTRO =====================
+function finalizarSessao(){
+  atualizarHeader();
+  showToast('Bem-vindo(a), '+usuario.nome+'! 🐸','green');
+  if(usuario.tipo==='cliente') prepararCliente();
+  else prepararTecnico();
+  irParaPerfil();
+}
+
+function sair(){
+  usuario=null; meusServicos=[]; servicosAndamentoList=[];
+  atualizarHeader();
+  irPara('home');
+  showToast('Você saiu da conta.');
+}
+
+// ===================== ABAS PERFIL =====================
+function abaCliente(aba){
+  document.querySelectorAll('#screen-cliente .ptab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#screen-cliente .ptab-pane').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('aba-'+aba).classList.add('active');
+}
+function abaTecnico(aba){
+  document.querySelectorAll('#screen-tecnico .ptab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#screen-tecnico .ptab-pane').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-'+aba).classList.add('active');
+}
+
+// ===================== PREPARAR CLIENTE =====================
+function prepararCliente(){
+  document.getElementById('clienteNomeDisplay').textContent=usuario.nome;
+  document.getElementById('clienteCidadeDisplay').textContent=usuario.cidade||'—';
+  document.getElementById('clienteAvatar').textContent=usuario.nome.charAt(0).toUpperCase();
+  document.getElementById('dadoNome').textContent=usuario.nome;
+  document.getElementById('dadoEmail').textContent=usuario.email;
+  document.getElementById('dadoTelefone').textContent=usuario.telefone||'—';
+  renderFeedCliente();
+  renderMeusServicos();
+}
+
+function renderFeedCliente(){
+  const grid=document.getElementById('feedCliente');
+  grid.innerHTML=todosServicos.map(s=>cardServico(s,'cliente')).join('');
+}
+
+function renderMeusServicos(){
+  const el=document.getElementById('meusServicosLista');
+  if(meusServicos.length===0){el.innerHTML='<p style="color:var(--muted);">Nenhum serviço publicado ainda.</p>';return;}
+  el.innerHTML=meusServicos.map(s=>`
+    <div class="my-service-card">
+      <div>
+        <h5>${s.titulo}</h5>
+        <p>${s.categoria} · ${s.cidade}</p>
+      </div>
+      <div style="text-align:right;">
+        <span class="status-badge ${s.status==='concluido'?'status-concluido':s.status==='andamento'?'status-andamento':'status-aberto'}">
+          ${s.status==='concluido'?'✅ Concluído':s.status==='andamento'?'⚡ Em andamento':'📢 Aberto'}
+        </span>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;color:var(--blue);font-size:18px;margin-top:6px;">
+          ${s.valor>0?'R$ '+s.valor.toLocaleString('pt-BR'):'A negociar'}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ===================== PREPARAR TÉCNICO =====================
+function prepararTecnico(){
+  document.getElementById('tecNomeDisplay').textContent=usuario.nome;
+  document.getElementById('tecEspecDisplay').textContent=usuario.especialidade||'—';
+  document.getElementById('tecAvatar').textContent=usuario.nome.charAt(0).toUpperCase();
+  document.getElementById('tecDadoNome').textContent=usuario.nome;
+  document.getElementById('tecDadoEmail').textContent=usuario.email;
+  document.getElementById('tecDadoEspec').textContent=usuario.especialidade||'—';
+  document.getElementById('tecDadoLi').textContent=usuario.linkedin||'—';
+  document.getElementById('tecDadoGh').textContent=usuario.github||'—';
+  document.getElementById('tecDadoBio').textContent=usuario.bio||'—';
+  renderFeedTecnico();
+  renderAndamento();
+}
+
+function renderFeedTecnico(){
+  const grid=document.getElementById('feedTecnico');
+  grid.innerHTML=todosServicos.filter(s=>s.status==='aberto').map(s=>cardServico(s,'tecnico')).join('');
+}
+
+function renderAndamento(){
+  const el=document.getElementById('servicosAndamento');
+  if(servicosAndamentoList.length===0){el.innerHTML='<p style="color:var(--muted);">Nenhum serviço em andamento.</p>';return;}
+  el.innerHTML=servicosAndamentoList.map(s=>`
+    <div class="my-service-card">
+      <div><h5>${s.titulo}</h5><p>${s.categoria} · ${s.cidade}</p></div>
+      <div style="text-align:right;">
+        <span class="status-badge status-andamento">⚡ Em andamento</span>
+        <button class="btn-pegar" style="margin-top:8px;padding:8px 16px;width:auto;" onclick="concluirServico(${s.id})">Marcar concluído</button>
+      </div>
+    </div>`).join('');
+}
+
+function concluirServico(id){
+  servicosAndamentoList=servicosAndamentoList.filter(s=>s.id!==id);
+  const idx=todosServicos.findIndex(s=>s.id===id);
+  if(idx>-1) todosServicos[idx].status='concluido';
+  renderAndamento();
+  renderFeedTecnico();
+  showToast('Serviço marcado como concluído! ✅','green');
+}
+
+// ===================== CARD SERVIÇO =====================
+function cardServico(s, tipo){
+  const tagClass=s.urgencia==='urgente'?'tag-urgente':s.urgencia==='hoje'?'tag-hoje':'tag-normal';
+  const tagLabel=s.urgencia==='urgente'?'🔴 Urgente':s.urgencia==='hoje'?'🟡 Esta semana':'🟢 Tranquilo';
+  const valorStr=s.valor>0?`<div class="service-price">R$ ${s.valor.toLocaleString('pt-BR')}</div>`:`<div class="service-price" style="font-size:16px;color:var(--muted);">A negociar</div>`;
+  let btn='';
+  if(tipo==='cliente'){
+    btn=`<button class="btn-pegar" onclick="verServico(${s.id},'cliente')">Ver detalhes</button>`;
+  } else {
+    btn=s.status==='aberto'
+      ?`<button class="btn-pegar" onclick="verServico(${s.id},'tecnico')">🐸 Candidatar-se</button>`
+      :`<button class="btn-pegar" disabled>Serviço fechado</button>`;
+  }
+  return `<div class="service-card">
+    <span class="tag ${tagClass}">${tagLabel}</span>
+    <h5>${s.titulo}</h5>
+    <p class="service-desc">${s.desc}</p>
+    <div class="service-meta">
+      <span>📍 ${s.cidade}</span>
+      <span>📁 ${s.categoria}</span>
+    </div>
+    ${valorStr}
+    ${btn}
+  </div>`;
+}
+
+// ===================== PUBLICAR SERVIÇO =====================
+function publicarServico(){
+  const titulo=document.getElementById('pubTitulo').value.trim();
+  const cat=document.getElementById('pubCategoria').value;
+  const desc=document.getElementById('pubDesc').value.trim();
+  const valor=parseFloat(document.getElementById('pubValor').value)||0;
+  const urg=document.getElementById('pubUrgencia').value;
+  const cidade=document.getElementById('pubCidade').value.trim()||'Remoto';
+  if(!titulo||!cat||!desc||!urg){showToast('Preencha todos os campos obrigatórios.','red');return;}
+  const s={id:Date.now(),titulo,desc,categoria:cat,valor,cidade,urgencia:urg,status:'aberto',cliente:usuario?.nome||'Anônimo'};
+  todosServicos.unshift(s); meusServicos.unshift(s);
+  fecharModal('modalPublicar');
+  renderFeedCliente(); renderMeusServicos(); renderFeedPublico();
+  // Limpar campos
+  ['pubTitulo','pubDesc','pubValor','pubCidade'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pubCategoria').value='';
+  document.getElementById('pubUrgencia').value='';
+  showToast('Serviço publicado com sucesso! 🐸','green');
+}
+
+// ===================== VER SERVIÇO / FLUXO PEGAR =====================
+function verServico(id, tipo){
+  servicoAtual=todosServicos.find(s=>s.id===id);
+  if(!servicoAtual) return;
+
+  if(tipo==='cliente'){
+    // Cliente vê detalhes simples
+    document.getElementById('servicoDetalhe').innerHTML=`
+      <div class="info-card" style="margin-bottom:0;">
+        <h4>${servicoAtual.titulo}</h4>
+        <p style="color:var(--muted);line-height:1.65;font-size:14px;margin-bottom:14px;">${servicoAtual.desc}</p>
+        <div class="info-row"><span>Categoria</span><span>${servicoAtual.categoria}</span></div>
+        <div class="info-row"><span>Local</span><span>${servicoAtual.cidade}</span></div>
+        <div class="info-row"><span>Orçamento</span><span style="font-weight:800;color:var(--blue);">${servicoAtual.valor>0?'R$ '+servicoAtual.valor.toLocaleString('pt-BR'):'A negociar'}</span></div>
+        <div class="info-row"><span>Status</span><span class="status-badge status-aberto">Aberto</span></div>
+      </div>`;
+    etapaPegar=1; atualizarEtapasPegar(1);
+    document.getElementById('pegarTitle').textContent='Detalhes do Serviço';
+    document.getElementById('btnVoltarPegar').style.display='none';
+    document.querySelector('#pStep1 .btn-full').textContent='Tenho interesse →';
+    abrirModal('modalPegar');
+
+  } else {
+    // Técnico se candidata
+    document.getElementById('tecPegarDetalhe').innerHTML=`
+      <div class="info-card">
+        <h4>${servicoAtual.titulo}</h4>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:12px;">${servicoAtual.desc}</p>
+        <div class="info-row"><span>Orçamento cliente</span><span style="font-weight:800;color:var(--blue);">${servicoAtual.valor>0?'R$ '+servicoAtual.valor.toLocaleString('pt-BR'):'A negociar'}</span></div>
+        <div class="info-row"><span>Local</span><span>${servicoAtual.cidade}</span></div>
+      </div>`;
+    abrirModal('modalTecPegar');
+  }
+}
+
+function tecCandidatar(){
+  const val=document.getElementById('tecPropVal').value;
+  const msg=document.getElementById('tecPropMsg').value.trim();
+  if(!val||!msg){showToast('Preencha valor e mensagem.','red');return;}
+  // Adiciona ao andamento
+  servicosAndamentoList.push({...servicoAtual});
+  const idx=todosServicos.findIndex(s=>s.id===servicoAtual.id);
+  if(idx>-1) todosServicos[idx].status='andamento';
+  fecharModal('modalTecPegar');
+  renderFeedTecnico(); renderAndamento();
+  // Limpar
+  document.getElementById('tecPropVal').value='';
+  document.getElementById('tecPropMsg').value='';
+  showToast('Candidatura enviada! Aguarde confirmação. ⚡','green');
+}
+
+// ===================== ETAPAS PEGAR =====================
+function pegarStep(n){
+  if(n===3){
+    const pv=document.getElementById('propValor').value;
+    const pp=document.getElementById('propPrazo').value;
+    const pm=document.getElementById('propMsg').value.trim();
+    if(!pv||!pp||!pm){showToast('Preencha todos os campos da proposta.','red');return;}
+    // Monta breakdown
+    const val=parseFloat(pv)||0;
+    const taxa=pagSelecionado==='cartao'?val*0.03:0;
+    document.getElementById('priceBreakdown').innerHTML=`
+      <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;">Resumo do pagamento</p>
+      <div class="price-row"><span>Serviço: ${servicoAtual?.titulo||'—'}</span><span>R$ ${val.toLocaleString('pt-BR')}</span></div>
+      ${taxa>0?`<div class="price-row"><span>Taxa do cartão (3%)</span><span>R$ ${taxa.toFixed(2)}</span></div>`:''}
+      <div class="price-row"><span>Proteção GRAB</span><span>R$ 0</span></div>
+      <div class="price-row total"><span>Total</span><span>R$ ${(val+taxa).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span></div>`;
+  }
+  document.getElementById('pStep'+etapaPegar).classList.remove('active');
+  etapaPegar=n;
+  document.getElementById('pStep'+n).classList.add('active');
+  atualizarEtapasPegar(n);
+  const titles=['Detalhes do Serviço','Sua Proposta','Pagamento','Confirmado!'];
+  document.getElementById('pegarTitle').textContent=titles[n-1];
+  document.getElementById('btnVoltarPegar').style.display=n>1&&n<4?'block':'none';
+}
+
+function voltarEtapaPegar(){if(etapaPegar>1)pegarStep(etapaPegar-1);}
+
+function atualizarEtapasPegar(n){
+  ['ps1','ps2','ps3','ps4'].forEach((id,i)=>{
+    const d=document.getElementById(id);
+    d.classList.remove('active','done');
+    if(i+1<n) d.classList.add('done');
+    else if(i+1===n) d.classList.add('active');
+  });
+}
+
+function selecionarPag(tipo){
+  pagSelecionado=tipo;
+  ['pix','cartao','boleto'].forEach(t=>{
+    document.getElementById('pay-'+t).classList.toggle('selected',t===tipo);
+  });
+}
+
+// ===================== FEED PÚBLICO =====================
+function renderFeedPublico(){
+  const grid=document.getElementById('feedPublico');
+  grid.innerHTML=todosServicos.slice(0,6).map(s=>{
+    const tagClass=s.urgencia==='urgente'?'tag-urgente':s.urgencia==='hoje'?'tag-hoje':'tag-normal';
+    const tagLabel=s.urgencia==='urgente'?'🔴 Urgente':s.urgencia==='hoje'?'🟡 Esta semana':'🟢 Tranquilo';
+    return `<div class="service-card">
+      <span class="tag ${tagClass}">${tagLabel}</span>
+      <h5>${s.titulo}</h5>
+      <p class="service-desc">${s.desc}</p>
+      <div class="service-meta"><span>📍 ${s.cidade}</span><span>📁 ${s.categoria}</span></div>
+      <div class="service-price">${s.valor>0?'R$ '+s.valor.toLocaleString('pt-BR'):'A negociar'}</div>
+      <button class="btn-pegar" onclick="abrirModal('modalEscolha')">🐸 Cadastre-se para pegar</button>
+    </div>`;
+  }).join('');
+}
+
+function renderTechGrid(){
+  document.getElementById('techGrid').innerHTML=tecnicos.map(t=>`
+    <div class="tech-card">
+      <img src="${t.foto}" class="tech-avatar" alt="${t.nome}">
+      <h4>${t.nome}</h4>
+      <div class="tech-role">${t.role}</div>
+      <div class="skills-row">${t.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div>
+      <div class="tech-rating">⭐ ${t.rating} · ${t.servicos} serviços</div>
+      <button class="btn-ver">Ver Perfil</button>
+    </div>`).join('');
+}
+
+// ===================== INIT =====================
+renderFeedPublico();
+renderTechGrid();
+</script>
+</body>
+</html>
