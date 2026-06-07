@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRAB Technology</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+:root{
+  --blue:#0047AB;--dark:#001b3d;--red:#ff355e;
+  --bg:#f4f7fb;--text:#0f172a;--muted:#64748b;
+  --card:rgba(255,255,255,0.9);--shadow:0 10px 40px rgba(0,71,171,0.12);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;}.screen.active{display:block;}
+.perfil-screen{display:none;min-height:100vh;padding-top:72px;}.perfil-screen.active{display:block;}
+
+/* HEADER */
+header{width:100%;background:rgba(255,255,255,0.96);backdrop-filter:blur(16px);padding:12px 6%;display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;z-index:999;box-shadow:0 2px 20px rgba(0,0,0,0.07);}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.logo img{width:38px;height:38px;border-radius:10px;object-fit:cover;}
+.logo h1{font-family:'Syne',sans-serif;font-size:21px;color:var(--blue);font-weight:800;line-height:1;}
+.logo h1 span{color:var(--red);}
+nav{display:flex;gap:26px;}
+nav a{text-decoration:none;color:var(--text);font-weight:500;font-size:14px;transition:.2s;cursor:pointer;padding:6px 2px;}
+nav a:hover{color:var(--blue);}
+.header-actions{display:flex;gap:10px;align-items:center;}
+.btn-outline{background:transparent;border:2px solid var(--blue);color:var(--blue);padding:8px 18px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13px;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-outline:hover{background:var(--blue);color:white;}
+.btn-primary{background:var(--blue);color:white;padding:9px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:13px;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-primary:hover{background:var(--dark);}
+.btn-red{background:var(--red);color:white;padding:9px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:600;font-size:13px;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-red:hover{opacity:.88;}
+.avatar-mini{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--red));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;cursor:pointer;border:2px solid white;box-shadow:var(--shadow);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;padding:130px 6% 80px;background:linear-gradient(135deg,#0047AB 0%,#001b3d 100%);color:white;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;width:600px;height:600px;background:rgba(255,255,255,0.04);border-radius:50%;top:-200px;right:-200px;}
+.hero::after{content:"";position:absolute;width:300px;height:300px;background:rgba(255,53,94,0.12);border-radius:50%;bottom:-100px;left:20%;}
+.hero-text{width:52%;z-index:2;position:relative;}
+.hero-text h2{font-family:'Syne',sans-serif;font-size:56px;line-height:1.08;margin-bottom:22px;font-weight:800;}
+.hero-text h2 span{color:var(--red);}
+.hero-text p{font-size:17px;line-height:1.75;margin-bottom:36px;color:#c7d9f5;max-width:460px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-hero-primary{background:linear-gradient(135deg,var(--red),#e0002b);color:white;padding:14px 30px;border:none;border-radius:13px;font-size:15px;cursor:pointer;font-weight:700;box-shadow:0 12px 28px rgba(255,53,94,0.3);transition:.25s;font-family:'DM Sans',sans-serif;}
+.btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(255,53,94,0.4);}
+.btn-hero-secondary{background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.5);color:white;padding:14px 30px;border-radius:13px;font-size:15px;cursor:pointer;font-weight:600;transition:.25s;font-family:'DM Sans',sans-serif;backdrop-filter:blur(8px);}
+.btn-hero-secondary:hover{background:rgba(255,255,255,0.22);}
+.hero-visual{width:42%;z-index:2;position:relative;display:flex;justify-content:center;}
+.hero-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:24px;}
+.hero-logo-wrap img{width:200px;height:200px;border-radius:28px;object-fit:cover;box-shadow:0 24px 60px rgba(0,0,0,0.3);animation:float 5s ease-in-out infinite;border:3px solid rgba(255,255,255,0.15);}
+.hero-card-float{background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:20px 24px;width:100%;max-width:320px;display:flex;gap:20px;justify-content:space-around;}
+.stat{text-align:center;}
+.stat-icon{font-size:22px;margin-bottom:4px;}
+.stat-label{font-size:11px;color:#a8c5f5;}
+.stat-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;}
+@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-14px);}100%{transform:translateY(0);}}
+
+/* SECTIONS */
+section.page-section{padding:90px 6%;}
+.section-title{text-align:center;margin-bottom:52px;}
+.section-title h3{font-family:'Syne',sans-serif;font-size:38px;color:var(--blue);font-weight:800;margin-bottom:12px;}
+.section-title p{color:var(--muted);font-size:16px;}
+
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+.feat-card{background:var(--card);padding:26px;border-radius:20px;box-shadow:var(--shadow);transition:.35s;border:1px solid rgba(0,71,171,0.07);}
+.feat-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,71,171,0.15);}
+.feat-card .icon{font-size:34px;margin-bottom:12px;}
+.feat-card h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--blue);margin-bottom:8px;}
+.feat-card p{color:var(--muted);font-size:13px;line-height:1.65;}
+
+/* FEED */
+.feed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
+.service-card{background:white;border-radius:18px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid #e8effa;transition:.3s;position:relative;overflow:hidden;}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,71,171,0.12);}
+.service-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--red));}
+.tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;}
+.tag-urgente{background:#fff0f3;color:var(--red);}
+.tag-hoje{background:#eff6ff;color:var(--blue);}
+.tag-normal{background:#f0fdf4;color:#16a34a;}
+.service-card h5{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--text);margin:12px 0 6px;}
+.service-card .service-desc{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:12px;}
+.service-meta{display:flex;gap:12px;font-size:12px;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;}
+.service-price{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--blue);}
+.btn-pegar{width:100%;background:linear-gradient(135deg,var(--blue),#0062d4);color:white;border:none;padding:12px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;transition:.25s;font-family:'DM Sans',sans-serif;margin-top:8px;}
+.btn-pegar:hover{background:var(--dark);transform:translateY(-2px);}
+.btn-pegar:disabled{background:#cbd5e1;cursor:not-allowed;transform:none;}
+
+/* TÉCNICOS */
+.tech-card{background:white;border-radius:20px;padding:26px;box-shadow:var(--shadow);text-align:center;transition:.3s;border:1px solid #e8effa;}
+.tech-card:hover{transform:translateY(-6px);}
+.tech-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;border:3px solid var(--blue);}
+.tech-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--text);margin-bottom:3px;}
+.tech-card .tech-role{color:var(--muted);font-size:12px;margin-bottom:12px;}
+.skills-row{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.skill-tag{background:#eff6ff;color:var(--blue);padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
+.tech-rating{font-size:12px;color:var(--muted);margin-bottom:12px;}
+.btn-ver{width:100%;background:transparent;border:2px solid var(--blue);color:var(--blue);padding:9px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif;}
+.btn-ver:hover{background:var(--blue);color:white;}
+
+/* FOOTER */
+footer{background:var(--dark);color:white;padding:50px 6%;text-align:center;}
+footer img{width:48px;height:48px;border-radius:12px;margin-bottom:12px;opacity:.9;}
+footer h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px;}
+footer p{color:#94a3b8;font-size:13px;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:9999;padding:20px;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal-box{background:white;width:100%;max-width:520px;border-radius:22px;padding:32px;position:relative;max-height:90vh;overflow-y:auto;animation:slideUp .25s ease;}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.2);}100%{transform:scale(1);}}
+.thinking-line{font-size:13px;color:var(--muted);padding:6px 12px;background:white;border-radius:8px;border:1px solid #e2e8f0;animation:fadeIn .3s ease;text-align:left;}
+.ia-tag{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;}
+.ia-tag-cat{background:#eff6ff;color:var(--blue);}
+.ia-tag-urg{background:#fff7ed;color:#ea580c;}
+.ia-tag-val{background:#f0fdf4;color:#16a34a;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+.modal-header h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text);}
+.modal-back{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:8px;transition:.2s;}
+.modal-back:hover{background:#f1f5f9;color:var(--text);}
+.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:8px;transition:.2s;}
+.modal-close:hover{background:#f1f5f9;color:var(--text);}
+.modal-steps{display:flex;gap:6px;margin-bottom:24px;}
+.step-dot{flex:1;height:4px;border-radius:4px;background:#e2e8f0;transition:.4s;}
+.step-dot.done{background:var(--blue);}
+.step-dot.active{background:linear-gradient(90deg,var(--blue),var(--red));}
+
+/* INPUTS */
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.field input,.field textarea,.field select{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:11px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:#fafcff;outline:none;transition:.25s;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--blue);background:white;box-shadow:0 0 0 3px rgba(0,71,171,0.08);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-full{width:100%;padding:13px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:.25s;font-family:'DM Sans',sans-serif;border:none;}
+.btn-full.blue{background:var(--blue);color:white;}
+.btn-full.blue:hover{background:var(--dark);}
+.btn-full.red{background:var(--red);color:white;}
+.btn-full.red:hover{opacity:.9;}
+.btn-full.outline{background:transparent;border:2px solid #e2e8f0;color:var(--muted);}
+.btn-full.outline:hover{border-color:var(--blue);color:var(--blue);}
+.or-divider{text-align:center;color:var(--muted);font-size:12px;margin:12px 0;position:relative;}
+.or-divider::before,.or-divider::after{content:"";position:absolute;top:50%;width:42%;height:1px;background:#e2e8f0;}
+.or-divider::before{left:0;}.or-divider::after{right:0;}
+
+/* PERFIL TELA */
+.perfil-hero{background:linear-gradient(135deg,var(--blue),var(--dark));padding:46px 6% 70px;color:white;}
+.perfil-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--red),#ff1744);display:flex;align-items:center;justify-content:center;color:white;font-size:34px;font-weight:800;margin-bottom:14px;border:4px solid rgba(255,255,255,0.25);font-family:'Syne',sans-serif;}
+.perfil-hero h2{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:4px;}
+.perfil-hero p{color:#a8c5f5;font-size:14px;}
+.perfil-body{padding:0 6% 60px;margin-top:-36px;}
+.perfil-tabs{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+.ptab{padding:9px 20px;border-radius:20px;border:2px solid #e2e8f0;background:white;cursor:pointer;font-weight:600;font-size:13px;transition:.2s;color:var(--muted);font-family:'DM Sans',sans-serif;}
+.ptab.active{background:var(--blue);color:white;border-color:var(--blue);}
+.ptab-pane{display:none;}.ptab-pane.active{display:block;}
+.info-card{background:white;border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px;}
+.info-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #f1f5f9;}
+.info-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f8fafc;font-size:13px;}
+.info-row:last-child{border:none;}
+.info-row span:first-child{color:var(--muted);}
+.info-row span:last-child{font-weight:600;color:var(--text);}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.status-aberto{background:#fff7ed;color:#ea580c;}
+.status-andamento{background:#eff6ff;color:var(--blue);}
+.status-concluido{background:#f0fdf4;color:#16a34a;}
+.my-service-card{background:white;border-radius:14px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+.my-service-card h5{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:3px;}
+.my-service-card p{color:var(--muted);font-size:12px;}
+
+/* CHECKOUT */
+.checkout-step{display:none;}.checkout-step.active{display:block;}
+.price-breakdown{background:#f8fafc;border-radius:12px;padding:16px;margin-bottom:18px;}
+.price-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;color:var(--muted);}
+.price-row.total{font-weight:700;color:var(--text);font-size:15px;border-top:1px solid #e2e8f0;margin-top:5px;padding-top:9px;}
+.payment-option{border:2px solid #e2e8f0;border-radius:13px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:.2s;}
+.payment-option:hover{border-color:var(--blue);}
+.payment-option.selected{border-color:var(--blue);background:#f0f7ff;}
+.payment-option .pay-icon{font-size:26px;}
+.payment-option .pay-label{font-weight:600;font-size:13px;}
+.payment-option .pay-sub{font-size:11px;color:var(--muted);}
+.success-anim{text-align:center;padding:16px 0;}
+.success-anim .checkmark{font-size:64px;animation:pop .4s ease;display:block;}
+.success-anim h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin:14px 0 8px;}
+.success-anim p{color:var(--muted);font-size:14px;line-height:1.6;}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--dark);color:white;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:99999;transform:translateY(80px);opacity:0;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,0.25);}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.green{background:#16a34a;}.toast.red{background:var(--red);}
+
+/* CHOICE */
+.choice-card{border:2px solid #e2e8f0;border-radius:14px;padding:20px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:.25s;margin-bottom:10px;}
+.choice-card:hover{border-color:var(--blue);background:#f0f7ff;}
+.choice-card .choice-icon{font-size:30px;}
+.choice-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:2px;}
+.choice-card p{font-size:12px;color:var(--muted);}
+
+/* PERFIL PÚBLICO TÉCNICO */
+.tec-perfil-hero{background:linear-gradient(135deg,var(--blue),var(--dark));border-radius:16px;padding:28px;color:white;text-align:center;margin-bottom:18px;}
+.tec-perfil-hero img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.4);margin-bottom:12px;}
+.tec-perfil-hero h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px;}
+.tec-perfil-hero p{font-size:13px;color:#a8c5f5;}
+.tec-stat-row{display:flex;gap:12px;justify-content:center;margin-top:14px;}
+.tec-stat{background:rgba(255,255,255,0.12);border-radius:10px;padding:8px 14px;text-align:center;}
+.tec-stat .val{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
+.tec-stat .lbl{font-size:10px;color:#a8c5f5;}
+
+/* FILTROS FEED */
+.feed-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+.filter-btn{padding:7px 14px;border-radius:20px;border:2px solid #e2e8f0;background:white;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);transition:.2s;font-family:'DM Sans',sans-serif;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--blue);color:var(--blue);background:#eff6ff;}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:4px;transition:.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-mobile{display:none;position:fixed;top:62px;left:0;right:0;background:white;z-index:998;padding:16px 6%;box-shadow:0 8px 24px rgba(0,0,0,0.1);flex-direction:column;gap:4px;}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{padding:12px 16px;border-radius:10px;font-size:15px;font-weight:600;color:var(--text);cursor:pointer;transition:.2s;}
+.nav-mobile a:hover{background:#f0f7ff;color:var(--blue);}
+
+/* TABLET (max 1024px) */
+@media(max-width:1024px){
+  .hero{padding:110px 5% 70px;}
+  .hero-text h2{font-size:46px;}
+  .hero-logo-wrap img{width:160px;height:160px;}
+  section.page-section{padding:70px 5%;}
+  .cards-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+  .feed-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+}
+
+/* TABLET PORTRAIT / LARGE MOBILE (max 900px) */
+@media(max-width:900px){
+  nav{display:none;}
+  .hamburger{display:flex;}
+  .hero{flex-direction:column;text-align:center;gap:32px;padding:100px 5% 60px;min-height:auto;}
+  .hero-text{width:100%;}
+  .hero-visual{width:100%;max-width:400px;margin:0 auto;}
+  .hero-text h2{font-size:38px;}
+  .hero-text p{margin:0 auto 28px;font-size:16px;}
+  .hero-btns{justify-content:center;}
+  .hero-logo-wrap img{width:140px;height:140px;}
+  .hero-card-float{max-width:100%;}
+  .field-row{grid-template-columns:1fr;}
+  .perfil-hero{padding:36px 5% 60px;}
+  .perfil-body{padding:0 5% 50px;}
+  .cards-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;}
+  .section-title h3{font-size:30px;}
+  .modal-box{max-width:100%;}
+}
+
+/* MOBILE (max 600px) */
+@media(max-width:600px){
+  header{padding:10px 4%;}
+  .logo h1{font-size:18px;}
+  .hero{padding:85px 4% 50px;gap:28px;}
+  .hero-text h2{font-size:28px;line-height:1.15;}
+  .hero-text p{font-size:14px;}
+  .btn-hero-primary,.btn-hero-secondary{padding:12px 22px;font-size:14px;width:100%;}
+  .hero-btns{flex-direction:column;gap:10px;}
+  .hero-logo-wrap img{width:110px;height:110px;border-radius:20px;}
+  .hero-card-float{padding:14px 16px;gap:10px;}
+  .stat-val{font-size:16px;}
+  .stat-label{font-size:10px;}
+  section.page-section{padding:56px 4%;}
+  .section-title h3{font-size:26px;}
+  .section-title p{font-size:14px;}
+  .section-title{margin-bottom:36px;}
+  .cards-grid{grid-template-columns:1fr;gap:14px;}
+  .feed-grid{grid-template-columns:1fr;gap:14px;}
+  .feat-card{padding:20px;}
+  .service-card{padding:20px;}
+  .tech-card{padding:20px;}
+  .modal-box{padding:20px 16px;border-radius:16px;margin:0;}
+  .modal-overlay{padding:12px;}
+  .modal-header h2{font-size:17px;}
+  .perfil-hero{padding:28px 4% 52px;}
+  .perfil-avatar{width:72px;height:72px;font-size:28px;}
+  .perfil-hero h2{font-size:22px;}
+  .perfil-body{padding:0 4% 40px;}
+  .perfil-tabs{gap:6px;}
+  .ptab{padding:8px 14px;font-size:12px;}
+  .my-service-card{flex-direction:column;align-items:flex-start;}
+  .my-service-card>div:last-child{text-align:left;}
+  .feed-filters{gap:6px;}
+  .filter-btn{padding:6px 10px;font-size:11px;}
+  .tec-stat-row{gap:8px;}
+  .tec-stat{padding:6px 10px;}
+  .btn-outline,.btn-primary{padding:8px 14px;font-size:12px;}
+  .header-actions{gap:6px;}
+  footer{padding:36px 4%;}
+  .toast{bottom:16px;right:16px;left:16px;text-align:center;}
+}
+
+/* SMALL MOBILE (max 380px) */
+@media(max-width:380px){
+  .hero-text h2{font-size:24px;}
+  .logo h1{display:none;}
+  .modal-box{padding:16px 12px;}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" onclick="irPara('home')">
+    <img src="https://frontarolli-git.github.io/logoGRAB.jpeg" alt="GRAB Logo" style="width:36px;height:36px;border-radius:9px;object-fit:cover;" onerror="this.style.display='none'">
+    <h1>GRAB <span>Tech</span></h1>
+  </a>
+  <nav>
+    <a onclick="navPara('funcionalidades')">Funcionalidades</a>
+    <a onclick="navPara('servicos')">Serviços</a>
+    <a onclick="navPara('feed-section')">Feed</a>
+    <a onclick="navPara('tecnicos-section')">Técnicos</a>
+    <a onclick="navPara('sobre')">Sobre</a>
+  </nav>
+  <div class="header-actions" id="headerActions">
+    <button class="btn-outline" onclick="abrirModal('modalLogin')">Entrar</button>
+    <button class="btn-primary" onclick="abrirModal('modalEscolha')">Cadastrar</button>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MENU MOBILE -->
+<div class="nav-mobile" id="navMobile">
+  <a onclick="toggleMenu();navPara('funcionalidades')">Funcionalidades</a>
+  <a onclick="toggleMenu();navPara('servicos')">Serviços</a>
+  <a onclick="toggleMenu();navPara('feed-section')">Feed</a>
+  <a onclick="toggleMenu();navPara('tecnicos-section')">Técnicos</a>
+  <a onclick="toggleMenu();navPara('sobre')">Sobre</a>
+</div>
+<div class="screen active" id="screen-home">
+
+  <section class="hero" id="inicio">
+    <div class="hero-text">
+      <h2>Pegue o profissional certo em <span>minutos.</span></h2>
+      <p>Marketplace inteligente de serviços em TI. Conectamos clientes e técnicos qualificados com IA de triagem e feed em tempo real.</p>
+      <div class="hero-btns">
+        <button class="btn-hero-primary" onclick="abrirModal('modalEscolha')">🐸 Publicar Serviço</button>
+        <button class="btn-hero-secondary" onclick="navPara('feed-section')">Explorar Feed</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-logo-wrap">
+        <img src="https://frontarolli-git.github.io/logoGRAB.jpeg" alt="GRAB Technology">
+        <div class="hero-card-float">
+          <div class="stat"><div class="stat-icon">🛠️</div><div class="stat-label">Serviços ativos</div><div class="stat-val">1.240</div></div>
+          <div class="stat"><div class="stat-icon">👨‍💻</div><div class="stat-label">Técnicos</div><div class="stat-val">530</div></div>
+          <div class="stat"><div class="stat-icon">⭐</div><div class="stat-label">Avaliação</div><div class="stat-val">4.9</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="funcionalidades">
+    <div class="section-title"><h3>Funcionalidades</h3><p>Marketplace + Rede Social + IA + Serviços Tech</p></div>
+    <div class="cards-grid">
+      <div class="feat-card"><div class="icon">🐸</div><h4>Feed Inteligente</h4><p>Serviços em formato de feed moderno, com filtros por categoria, urgência e localização.</p></div>
+      <div class="feat-card"><div class="icon">⚡</div><h4>Match Profissional</h4><p>Técnicos demonstram interesse em serviços abertos. Clientes escolhem o melhor perfil.</p></div>
+      <div class="feat-card"><div class="icon">🧠</div><h4>IA de Triagem</h4><p>Diagnóstico prévio inteligente antes de publicar. Categoriza e prioriza automaticamente.</p></div>
+      <div class="feat-card"><div class="icon">🔗</div><h4>Perfil Integrado</h4><p>Conecte LinkedIn, GitHub e Instagram. Portfólio completo em um só lugar.</p></div>
+      <div class="feat-card"><div class="icon">💳</div><h4>Pagamento Seguro</h4><p>Pix, cartão ou boleto com liberação somente após conclusão do serviço.</p></div>
+      <div class="feat-card"><div class="icon">⭐</div><h4>Avaliações</h4><p>Sistema de reputação para clientes e técnicos. Transparência total.</p></div>
+    </div>
+  </section>
+
+  <section class="page-section" id="servicos" style="background:#f8fbff;">
+    <div class="section-title"><h3>Serviços Disponíveis</h3><p>Tudo em tecnologia em um só lugar.</p></div>
+    <div class="cards-grid">
+      <div class="feat-card"><div class="icon">💻</div><h4>Desenvolvimento Web</h4><p>Sites, APIs, sistemas e plataformas completas.</p></div>
+      <div class="feat-card"><div class="icon">🛠️</div><h4>Suporte Técnico</h4><p>Manutenção, upgrades e resolução de problemas.</p></div>
+      <div class="feat-card"><div class="icon">🎨</div><h4>Design Gráfico</h4><p>Identidade visual, UI/UX e social media.</p></div>
+      <div class="feat-card"><div class="icon">☁️</div><h4>Cloud & Infra</h4><p>Servidores, redes e arquitetura em nuvem.</p></div>
+    </div>
+  </section>
+
+  <section class="page-section" id="feed-section" style="background:linear-gradient(180deg,#edf3ff 0%,#f4f7fb 100%);">
+    <div class="section-title"><h3>Feed de Serviços</h3><p>Explore solicitações abertas — cadastre-se para pegar um serviço.</p></div>
+    <div class="feed-filters" id="filtrosPublico">
+      <button class="filter-btn active" onclick="filtrarPublico('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="filtrarPublico('Desenvolvimento Web',this)">💻 Dev Web</button>
+      <button class="filter-btn" onclick="filtrarPublico('Suporte Técnico',this)">🛠️ Suporte</button>
+      <button class="filter-btn" onclick="filtrarPublico('Design Gráfico / UI-UX',this)">🎨 Design</button>
+      <button class="filter-btn" onclick="filtrarPublico('Cloud & Infraestrutura',this)">☁️ Cloud</button>
+      <button class="filter-btn" onclick="filtrarPublico('Mobile',this)">📱 Mobile</button>
+      <button class="filter-btn" onclick="filtrarPublico('Data Science / IA',this)">🤖 IA</button>
+    </div>
+    <div class="feed-grid" id="feedPublico"></div>
+  </section>
+
+  <section class="page-section" id="tecnicos-section">
+    <div class="section-title"><h3>Técnicos em Destaque</h3><p>Profissionais qualificados prontos para atender.</p></div>
+    <div class="cards-grid" id="techGrid"></div>
+  </section>
+
+  <section class="page-section" id="sobre" style="background:linear-gradient(135deg,var(--blue),var(--dark));color:white;text-align:center;">
+    <img src="https://frontarolli-git.github.io/logoGRAB.jpeg" alt="GRAB" style="width:72px;height:72px;border-radius:16px;object-fit:cover;margin-bottom:18px;border:2px solid rgba(255,255,255,0.2);">
+    <h3 style="font-family:'Syne',sans-serif;font-size:34px;font-weight:800;margin-bottom:12px;">Sobre a GRAB</h3>
+    <p style="max-width:540px;margin:0 auto;font-size:16px;line-height:1.75;color:#c7d9f5;">Plataforma desenvolvida pela LookTech para revolucionar a contratação de serviços em tecnologia no Brasil. Conectamos quem precisa com quem entrega — rápido, seguro e inteligente.</p>
+  </section>
+
+  <footer>
+    <img src="https://frontarolli-git.github.io/logoGRAB.jpeg" alt="GRAB" onerror="this.style.display='none'">
+    <h2>🐸 GRAB Technology</h2>
+    <p>Plataforma desenvolvida pela LookTech © 2025</p>
+  </footer>
+</div>
+
+<!-- ===== PERFIL CLIENTE ===== -->
+<div class="perfil-screen" id="screen-cliente">
+  <div class="perfil-hero">
+    <div class="perfil-avatar" id="clienteAvatar">?</div>
+    <h2 id="clienteNomeDisplay">—</h2>
+    <p>👤 Cliente · <span id="clienteCidadeDisplay">—</span></p>
+  </div>
+  <div class="perfil-body">
+    <div class="perfil-tabs">
+      <button class="ptab active" onclick="abaCliente(this,'aba-feed')">🐸 Feed</button>
+      <button class="ptab" onclick="abaCliente(this,'aba-meus')">📋 Meus Serviços</button>
+      <button class="ptab" onclick="abaCliente(this,'aba-dados')">👤 Dados</button>
+    </div>
+    <div class="ptab-pane active" id="aba-feed">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+        <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;">Feed de Serviços</h3>
+        <button class="btn-red" onclick="abrirModal('modalPublicar')">+ Publicar Serviço</button>
+      </div>
+      <div class="feed-filters" id="filtrosCliente">
+        <button class="filter-btn active" onclick="filtrarCliente('todos',this)">Todos</button>
+        <button class="filter-btn" onclick="filtrarCliente('Desenvolvimento Web',this)">💻 Dev Web</button>
+        <button class="filter-btn" onclick="filtrarCliente('Suporte Técnico',this)">🛠️ Suporte</button>
+        <button class="filter-btn" onclick="filtrarCliente('Design Gráfico / UI-UX',this)">🎨 Design</button>
+        <button class="filter-btn" onclick="filtrarCliente('Cloud & Infraestrutura',this)">☁️ Cloud</button>
+        <button class="filter-btn" onclick="filtrarCliente('Mobile',this)">📱 Mobile</button>
+        <button class="filter-btn" onclick="filtrarCliente('Data Science / IA',this)">🤖 IA</button>
+      </div>
+      <div class="feed-grid" id="feedCliente"></div>
+    </div>
+    <div class="ptab-pane" id="aba-meus">
+      <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px;">Meus Serviços Publicados</h3>
+      <div id="meusServicosLista"><p style="color:var(--muted);">Nenhum serviço publicado ainda.</p></div>
+    </div>
+    <div class="ptab-pane" id="aba-dados">
+      <div class="info-card">
+        <h4>Informações da Conta</h4>
+        <div class="info-row"><span>Nome</span><span id="dadoNome">—</span></div>
+        <div class="info-row"><span>Email</span><span id="dadoEmail">—</span></div>
+        <div class="info-row"><span>Telefone</span><span id="dadoTelefone">—</span></div>
+        <div class="info-row"><span>Tipo</span><span>Cliente</span></div>
+      </div>
+      <button class="btn-full outline" onclick="sair()">Sair da conta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PERFIL TÉCNICO ===== -->
+<div class="perfil-screen" id="screen-tecnico">
+  <div class="perfil-hero">
+    <div class="perfil-avatar" id="tecAvatar">?</div>
+    <h2 id="tecNomeDisplay">—</h2>
+    <p>🔧 Técnico · <span id="tecEspecDisplay">—</span></p>
+  </div>
+  <div class="perfil-body">
+    <div class="perfil-tabs">
+      <button class="ptab active" onclick="abaTecnico(this,'tab-oport')">⚡ Oportunidades</button>
+      <button class="ptab" onclick="abaTecnico(this,'tab-andamento')">📋 Em Andamento</button>
+      <button class="ptab" onclick="abaTecnico(this,'tab-dados')">👤 Perfil</button>
+    </div>
+    <div class="ptab-pane active" id="tab-oport">
+      <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px;">Serviços Disponíveis</h3>
+      <div class="feed-grid" id="feedTecnico"></div>
+    </div>
+    <div class="ptab-pane" id="tab-andamento">
+      <h3 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:16px;">Serviços em Andamento</h3>
+      <div id="servicosAndamento"><p style="color:var(--muted);">Nenhum serviço em andamento.</p></div>
+    </div>
+    <div class="ptab-pane" id="tab-dados">
+      <div class="info-card">
+        <h4>Perfil Profissional</h4>
+        <div class="info-row"><span>Nome</span><span id="tecDadoNome">—</span></div>
+        <div class="info-row"><span>Email</span><span id="tecDadoEmail">—</span></div>
+        <div class="info-row"><span>Especialidade</span><span id="tecDadoEspec">—</span></div>
+        <div class="info-row"><span>LinkedIn</span><span id="tecDadoLi">—</span></div>
+        <div class="info-row"><span>GitHub</span><span id="tecDadoGh">—</span></div>
+        <div class="info-row"><span>Bio</span><span id="tecDadoBio" style="max-width:220px;text-align:right;">—</span></div>
+      </div>
+      <button class="btn-full outline" onclick="sair()">Sair da conta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======= MODAIS ======= -->
+
+<!-- ESCOLHA -->
+<div class="modal-overlay" id="modalEscolha">
+  <div class="modal-box">
+    <div class="modal-header"><h2>Como deseja entrar?</h2><button class="modal-close" onclick="fecharModal('modalEscolha')">✕</button></div>
+    <div class="choice-card" onclick="trocarModal('modalEscolha','modalCliente')"><span class="choice-icon">👤</span><div><h4>Sou Cliente</h4><p>Preciso contratar um profissional de TI</p></div></div>
+    <div class="choice-card" onclick="trocarModal('modalEscolha','modalTecnico')"><span class="choice-icon">🔧</span><div><h4>Sou Técnico</h4><p>Quero oferecer meus serviços de TI</p></div></div>
+    <div class="or-divider">já tem conta?</div>
+    <button class="btn-full outline" onclick="trocarModal('modalEscolha','modalLogin')">Fazer Login</button>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="modal-overlay" id="modalLogin">
+  <div class="modal-box">
+    <div class="modal-header"><h2>Entrar na GRAB</h2><button class="modal-close" onclick="fecharModal('modalLogin')">✕</button></div>
+    <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="seu@email.com"></div>
+    <div class="field"><label>Senha</label><input type="password" id="loginSenha" placeholder="••••••••"></div>
+    <button class="btn-full blue" onclick="fazerLogin()" style="margin-top:4px;">Entrar</button>
+    <div class="or-divider">não tem conta?</div>
+    <button class="btn-full outline" onclick="trocarModal('modalLogin','modalEscolha')">Criar conta grátis</button>
+  </div>
+</div>
+
+<!-- CADASTRO CLIENTE -->
+<div class="modal-overlay" id="modalCliente">
+  <div class="modal-box">
+    <div class="modal-header">
+      <button class="modal-back" onclick="trocarModal('modalCliente','modalEscolha')">←</button>
+      <h2>Cadastro Cliente</h2>
+      <button class="modal-close" onclick="fecharModal('modalCliente')">✕</button>
+    </div>
+    <div class="modal-steps"><div class="step-dot active" id="cs1"></div><div class="step-dot" id="cs2"></div><div class="step-dot" id="cs3"></div></div>
+    <div class="checkout-step active" id="cStep1">
+      <div class="field"><label>Nome completo</label><input type="text" id="cNome" placeholder="Seu nome"></div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input type="email" id="cEmail" placeholder="email@exemplo.com"></div>
+        <div class="field"><label>Telefone</label><input type="text" id="cTelefone" placeholder="(11) 91234-5678"></div>
+      </div>
+      <div class="field"><label>Cidade</label><input type="text" id="cCidade" placeholder="Ex: São Paulo"></div>
+      <button class="btn-full blue" onclick="cliStep(2)">Continuar →</button>
+    </div>
+    <div class="checkout-step" id="cStep2">
+      <div class="field"><label>Senha</label><input type="password" id="cSenha" placeholder="Min. 6 caracteres"></div>
+      <div class="field"><label>Confirmar senha</label><input type="password" id="cConfirma" placeholder="Repita a senha"></div>
+      <button class="btn-full blue" onclick="cliStep(3)">Continuar →</button>
+      <button class="btn-full outline" style="margin-top:10px;" onclick="cliStep(1)">← Voltar</button>
+    </div>
+    <div class="checkout-step" id="cStep3">
+      <div id="iaInput">
+        <div style="text-align:center;margin-bottom:18px;">
+          <div style="font-size:44px;margin-bottom:8px;">🧠</div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;">Quase lá! Qual o seu problema?</h3>
+          <p style="color:var(--muted);font-size:13px;margin-top:4px;">Nossa IA analisa e encontra o profissional certo para você.</p>
+        </div>
+        <div class="field"><label>Descreva o problema com detalhes</label><textarea id="cProblema" rows="4" placeholder="Ex: Meu notebook Dell está muito lento, demora 5 min para ligar e trava ao abrir o Chrome..."></textarea></div>
+        <button class="btn-full blue" onclick="analisarComIA()">🧠 Analisar com IA →</button>
+        <button class="btn-full outline" style="margin-top:8px;" onclick="cliStep(2)">← Voltar</button>
+        <button class="btn-full outline" style="margin-top:6px;font-size:12px;" onclick="finalizarCadastroCliente(null)">Pular esta etapa</button>
+      </div>
+      <div id="iaLoading" style="display:none;text-align:center;padding:24px 0;">
+        <div style="font-size:44px;margin-bottom:12px;animation:spin 1.5s linear infinite;display:inline-block;">⚙️</div>
+        <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:6px;">Analisando seu problema...</h3>
+        <p style="color:var(--muted);font-size:13px;">A IA está categorizando e buscando o técnico ideal.</p>
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:7px;" id="iaThinking"></div>
+      </div>
+      <div id="iaResultado" style="display:none;">
+        <div style="text-align:center;margin-bottom:14px;">
+          <div style="font-size:32px;margin-bottom:6px;">✅</div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;">Diagnóstico prévio pronto!</h3>
+        </div>
+        <div id="iaCard" style="background:linear-gradient(135deg,#f0f7ff,#e8f4ff);border:1px solid #bfdbfe;border-radius:14px;padding:18px;margin-bottom:14px;">
+          <div id="iaTexto" style="font-size:13px;color:#1e3a5f;line-height:1.75;"></div>
+        </div>
+        <div id="iaTags" style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;"></div>
+        <button class="btn-full blue" onclick="finalizarCadastroClienteComIA()">🐸 Criar conta e publicar serviço</button>
+        <button class="btn-full outline" style="margin-top:8px;" onclick="resetIA()">Refazer análise</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CADASTRO TÉCNICO -->
+<div class="modal-overlay" id="modalTecnico">
+  <div class="modal-box">
+    <div class="modal-header">
+      <button class="modal-back" onclick="trocarModal('modalTecnico','modalEscolha')">←</button>
+      <h2>Cadastro Técnico</h2>
+      <button class="modal-close" onclick="fecharModal('modalTecnico')">✕</button>
+    </div>
+    <div class="modal-steps"><div class="step-dot active" id="ts1"></div><div class="step-dot" id="ts2"></div><div class="step-dot" id="ts3"></div></div>
+    <div class="checkout-step active" id="tStep1">
+      <div class="field"><label>Nome completo</label><input type="text" id="tNome" placeholder="Seu nome"></div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input type="email" id="tEmail" placeholder="email@exemplo.com"></div>
+        <div class="field"><label>Telefone</label><input type="text" id="tTelefone" placeholder="(11) 91234-5678"></div>
+      </div>
+      <div class="field"><label>Especialidade principal</label>
+        <select id="tEspec"><option value="">Selecione</option><option>Desenvolvimento Web</option><option>Suporte Técnico</option><option>Design Gráfico / UI-UX</option><option>Cloud & Infraestrutura</option><option>Data Science / IA</option><option>Mobile (iOS / Android)</option></select>
+      </div>
+      <button class="btn-full blue" onclick="tecStep(2)">Continuar →</button>
+    </div>
+    <div class="checkout-step" id="tStep2">
+      <div class="field"><label>Bio profissional</label><textarea id="tBio" rows="3" placeholder="Fale sobre sua experiência..."></textarea></div>
+      <div class="field"><label>LinkedIn (opcional)</label><input type="text" id="tLinkedin" placeholder="linkedin.com/in/..."></div>
+      <div class="field"><label>GitHub (opcional)</label><input type="text" id="tGithub" placeholder="github.com/..."></div>
+      <button class="btn-full blue" onclick="tecStep(3)">Continuar →</button>
+      <button class="btn-full outline" style="margin-top:8px;" onclick="tecStep(1)">← Voltar</button>
+    </div>
+    <div class="checkout-step" id="tStep3">
+      <div class="field"><label>Senha</label><input type="password" id="tSenha" placeholder="Min. 6 caracteres"></div>
+      <div class="field"><label>Confirmar senha</label><input type="password" id="tConfirma" placeholder="Repita a senha"></div>
+      <div style="background:#f0f7ff;border-radius:12px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--blue);">✅ Seu perfil ficará visível no feed de técnicos após aprovação.</div>
+      <button class="btn-full blue" onclick="finalizarCadastroTecnico()">🐸 Criar perfil técnico</button>
+      <button class="btn-full outline" style="margin-top:8px;" onclick="tecStep(2)">← Voltar</button>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLICAR SERVIÇO -->
+<div class="modal-overlay" id="modalPublicar">
+  <div class="modal-box">
+    <div class="modal-header"><h2>Publicar Serviço</h2><button class="modal-close" onclick="fecharModal('modalPublicar')">✕</button></div>
+    <div class="field"><label>Título do serviço</label><input type="text" id="pubTitulo" placeholder="Ex: Loja virtual React + Node"></div>
+    <div class="field"><label>Categoria</label>
+      <select id="pubCategoria"><option value="">Selecione</option><option>Desenvolvimento Web</option><option>Suporte Técnico</option><option>Design Gráfico / UI-UX</option><option>Cloud & Infraestrutura</option><option>Data Science / IA</option><option>Mobile</option></select>
+    </div>
+    <div class="field"><label>Descrição detalhada</label><textarea id="pubDesc" rows="4" placeholder="Descreva o que precisa ser feito..."></textarea></div>
+    <div class="field-row">
+      <div class="field"><label>Orçamento (R$)</label><input type="number" id="pubValor" placeholder="0,00"></div>
+      <div class="field"><label>Urgência</label>
+        <select id="pubUrgencia"><option value="">Selecione</option><option value="urgente">🔴 Urgente</option><option value="hoje">🟡 Esta semana</option><option value="normal">🟢 Sem pressa</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Cidade / Local</label><input type="text" id="pubCidade" placeholder="Ex: São Paulo - SP"></div>
+    <button class="btn-full red" onclick="publicarServico()">🐸 Publicar Serviço</button>
+  </div>
+</div>
+
+<!-- PEGAR SERVIÇO (cliente) -->
+<div class="modal-overlay" id="modalPegar">
+  <div class="modal-box" style="max-width:540px;">
+    <div class="modal-header">
+      <button class="modal-back" id="btnVoltarPegar" onclick="voltarEtapaPegar()" style="display:none;">←</button>
+      <h2 id="pegarTitle">Detalhes do Serviço</h2>
+      <button class="modal-close" onclick="fecharModal('modalPegar')">✕</button>
+    </div>
+    <div class="modal-steps"><div class="step-dot active" id="ps1"></div><div class="step-dot" id="ps2"></div><div class="step-dot" id="ps3"></div><div class="step-dot" id="ps4"></div></div>
+    <div class="checkout-step active" id="pStep1">
+      <div id="servicoDetalhe"></div>
+      <button class="btn-full blue" style="margin-top:14px;" onclick="pegarStep(2)">Tenho interesse →</button>
+    </div>
+    <div class="checkout-step" id="pStep2">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">O técnico receberá sua solicitação e enviará uma proposta de preço.</p>
+      <div class="field"><label>Prazo desejado</label>
+        <select id="propPrazo"><option value="">Selecione</option><option>O mais rápido possível</option><option>2-3 dias</option><option>Esta semana</option><option>2 semanas</option><option>Sem pressa</option></select>
+      </div>
+      <div class="field"><label>Orçamento máximo (R$)</label><input type="number" id="propValor" placeholder="Quanto você topa pagar"></div>
+      <div class="field"><label>Informações adicionais</label><textarea id="propMsg" rows="3" placeholder="Detalhe mais o que precisa, horários disponíveis, etc..."></textarea></div>
+      <button class="btn-full blue" onclick="pegarStep(3)">Confirmar interesse →</button>
+      <button class="btn-full outline" style="margin-top:8px;" onclick="pegarStep(1)">← Voltar</button>
+    </div>
+    <div class="checkout-step" id="pStep3">
+      <div class="price-breakdown" id="priceBreakdown"></div>
+      <p style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);">Forma de pagamento:</p>
+      <div class="payment-option selected" id="pay-pix" onclick="selecionarPag('pix')"><span class="pay-icon">⚡</span><div><div class="pay-label">Pix</div><div class="pay-sub">Aprovação imediata · Sem taxas</div></div></div>
+      <div class="payment-option" id="pay-cartao" onclick="selecionarPag('cartao')"><span class="pay-icon">💳</span><div><div class="pay-label">Cartão de Crédito</div><div class="pay-sub">Parcelamento em até 12x · 3% de taxa</div></div></div>
+      <div class="payment-option" id="pay-boleto" onclick="selecionarPag('boleto')"><span class="pay-icon">🧾</span><div><div class="pay-label">Boleto Bancário</div><div class="pay-sub">Vencimento em 3 dias úteis</div></div></div>
+      <p style="font-size:11px;color:var(--muted);margin:10px 0 14px;">🔒 Pagamento liberado ao técnico somente após sua aprovação.</p>
+      <button class="btn-full blue" onclick="pegarStep(4)">Confirmar e pagar →</button>
+      <button class="btn-full outline" style="margin-top:8px;" onclick="pegarStep(2)">← Voltar</button>
+    </div>
+    <div class="checkout-step" id="pStep4">
+      <div class="success-anim">
+        <span class="checkmark">✅</span>
+        <h3>Solicitação enviada!</h3>
+        <p>O técnico receberá sua solicitação e entrará em contato com uma proposta.</p>
+        <div style="background:#f0fdf4;border-radius:12px;padding:14px;margin:16px 0;text-align:left;">
+          <p style="font-size:13px;color:#166534;font-weight:600;">📋 Próximos passos:</p>
+          <p style="font-size:12px;color:#15803d;margin-top:5px;line-height:1.7;">1. Técnico entrará em contato em até 2h<br>2. Alinhem escopo e prazo<br>3. Serviço é executado<br>4. Você aprova e libera o pagamento</p>
+        </div>
+        <button class="btn-full blue" onclick="fecharModal('modalPegar')">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CANDIDATURA TÉCNICO -->
+<div class="modal-overlay" id="modalTecPegar">
+  <div class="modal-box">
+    <div class="modal-header"><h2>Candidatar-se ao Serviço</h2><button class="modal-close" onclick="fecharModal('modalTecPegar')">✕</button></div>
+    <div id="tecPegarDetalhe"></div>
+    <div class="field" style="margin-top:14px;"><label>Valor que cobrarei (R$)</label><input type="number" id="tecPropVal" placeholder="Sua proposta"></div>
+    <div class="field"><label>Prazo estimado</label>
+      <select id="tecPropPrazo"><option value="">Selecione</option><option>Mesmo dia</option><option>2-3 dias</option><option>1 semana</option><option>2 semanas</option><option>1 mês ou mais</option></select>
+    </div>
+    <div class="field"><label>Mensagem ao cliente</label><textarea id="tecPropMsg" rows="3" placeholder="Explique por que você é o certo para esse serviço..."></textarea></div>
+    <button class="btn-full blue" onclick="tecCandidatar()">🐸 Enviar candidatura</button>
+  </div>
+</div>
+
+<!-- PERFIL PÚBLICO TÉCNICO -->
+<div class="modal-overlay" id="modalPerfilTecnico">
+  <div class="modal-box" style="max-width:480px;">
+    <div class="modal-header"><h2>Perfil do Técnico</h2><button class="modal-close" onclick="fecharModal('modalPerfilTecnico')">✕</button></div>
+    <div class="tec-perfil-hero">
+      <img id="pubTecFoto" src="" alt="">
+      <h3 id="pubTecNome">—</h3>
+      <p id="pubTecRole">—</p>
+      <div class="tec-stat-row">
+        <div class="tec-stat"><div class="val" id="pubTecRating">—</div><div class="lbl">Avaliação</div></div>
+        <div class="tec-stat"><div class="val" id="pubTecServicos">—</div><div class="lbl">Serviços</div></div>
+        <div class="tec-stat"><div class="val">⚡</div><div class="lbl">Resposta rápida</div></div>
+      </div>
+    </div>
+    <div id="pubTecSkills" style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;"></div>
+    <div class="info-card" style="margin-bottom:14px;">
+      <h4>Sobre</h4>
+      <p id="pubTecBio" style="font-size:13px;color:var(--muted);line-height:1.65;">—</p>
+    </div>
+    <div class="info-card" style="margin-bottom:16px;" id="pubTecLinksCard">
+      <h4>Links</h4>
+      <div id="pubTecLinks"></div>
+    </div>
+    <button class="btn-full blue" onclick="fecharModal('modalPerfilTecnico')">Fechar perfil</button>
+  </div>
+</div>
+
+<script>
+// ===== MENU MOBILE =====
+function toggleMenu(){
+  const h=document.getElementById('hamburger');
+  const n=document.getElementById('navMobile');
+  h.classList.toggle('open');
+  n.classList.toggle('open');
+}
+// fecha menu ao clicar fora
+document.addEventListener('click',e=>{
+  const h=document.getElementById('hamburger');
+  const n=document.getElementById('navMobile');
+  if(!h.contains(e.target)&&!n.contains(e.target)){
+    h.classList.remove('open');n.classList.remove('open');
+  }
+});
+
+// ===== NAVEGAÇÃO =====
+
+// ===== ESTADO =====
+let usuario = null;
+let servicoAtual = null;
+let pagSelecionado = 'pix';
+let etapaPegar = 1;
+let meusServicos = [];
+let servicosAndamentoList = [];
+let iaResultadoData = null;
+let filtroAtualPublico = 'todos';
+let filtroAtualCliente = 'todos';
+
+// ===== DADOS =====
+let todosServicos = [
+  {id:1,titulo:'Loja Virtual Completa',desc:'Cliente busca desenvolvedor React para e-commerce com carrinho, pagamento e painel admin.',categoria:'Desenvolvimento Web',valor:3500,cidade:'São Paulo - SP',urgencia:'urgente',status:'aberto',cliente:'João Silva'},
+  {id:2,titulo:'Notebook Superaquecendo',desc:'Necessário suporte técnico urgente. Limpeza interna, pasta térmica e diagnóstico completo.',categoria:'Suporte Técnico',valor:250,cidade:'Campinas - SP',urgencia:'hoje',status:'aberto',cliente:'Maria Souza'},
+  {id:3,titulo:'Identidade Visual para Startup',desc:'Logo, paleta de cores, tipografia e templates para redes sociais. Briefing disponível.',categoria:'Design Gráfico / UI-UX',valor:1800,cidade:'Remoto',urgencia:'normal',status:'aberto',cliente:'Pedro Alves'},
+  {id:4,titulo:'Migração para AWS',desc:'Migrar aplicação Node.js + PostgreSQL para EC2 + RDS. Configurar load balancer e backups automáticos.',categoria:'Cloud & Infraestrutura',valor:4200,cidade:'Remoto',urgencia:'hoje',status:'aberto',cliente:'Ana Lima'},
+  {id:5,titulo:'App Mobile de Delivery',desc:'Aplicativo React Native para delivery local. Telas: cardápio, pedido, rastreio, pagamento.',categoria:'Mobile',valor:6500,cidade:'Rio de Janeiro - RJ',urgencia:'normal',status:'aberto',cliente:'Carlos Melo'},
+  {id:6,titulo:'Dashboard de BI',desc:'Power BI conectado ao banco MySQL da empresa. 5 relatórios definidos. Treinamento incluído.',categoria:'Data Science / IA',valor:2800,cidade:'Belo Horizonte - MG',urgencia:'urgente',status:'aberto',cliente:'Fernanda Cruz'},
+  {id:7,titulo:'Sistema de Agendamento Online',desc:'Sistema web para clínica médica agendar consultas, enviar lembretes por WhatsApp e gerenciar pacientes.',categoria:'Desenvolvimento Web',valor:5200,cidade:'São Paulo - SP',urgencia:'hoje',status:'aberto',cliente:'Dr. Roberto'},
+  {id:8,titulo:'Configurar Servidor Linux',desc:'Configurar VPS Ubuntu com Nginx, SSL, PHP e banco de dados para hospedar e-commerce.',categoria:'Cloud & Infraestrutura',valor:800,cidade:'Remoto',urgencia:'normal',status:'aberto',cliente:'Loja ABC'},
+];
+
+let tecnicos = [
+  {id:1,nome:'Will Frontarolli',role:'Desenvolvedor Full Stack',skills:['React','Node.js','UI/UX','TypeScript'],rating:'4.9',servicos:124,foto:'https://i.pravatar.cc/150?img=12',bio:'Desenvolvedor full stack com 5 anos de experiência em plataformas modernas. Especialista em React, Node.js e arquitetura de sistemas escaláveis.',linkedin:'linkedin.com/in/willfrontarolli',github:'github.com/frontarolli-git'},
+  {id:2,nome:'Gabriela de Oliveira',role:'Designer UX/UI',skills:['Figma','Branding','UX Research','Prototyping'],rating:'5.0',servicos:210,foto:'https://i.pravatar.cc/150?img=32',bio:'Designer especializada em experiência do usuário com foco em produtos digitais e identidade de marca. Trabalho orientado a dados e métricas.',linkedin:'linkedin.com/in/gabriela-oliveira'},
+  {id:3,nome:'Gabriel Nobre',role:'Cloud Engineer & DevOps',skills:['AWS','Docker','Kubernetes','CI/CD'],rating:'4.8',servicos:88,foto:'https://i.pravatar.cc/150?img=54',bio:'Engenheiro de cloud com certificação AWS Solutions Architect. Especialista em infraestrutura como código, pipelines DevOps e otimização de custos.',linkedin:'linkedin.com/in/gabrielnobre',github:'github.com/gabrielnobre'},
+  {id:4,nome:'Ana Karolina Kanzler',role:'Data Scientist & IA',skills:['Python','Machine Learning','Power BI','SQL'],rating:'4.9',servicos:65,foto:'https://i.pravatar.cc/150?img=47',bio:'Cientista de dados com expertise em machine learning, análise preditiva e visualização de dados. Projetos entregues para empresas do Fortune 500.',linkedin:'linkedin.com/in/anakanzler',github:'github.com/akanzler'},
+];
+
+// ===== NAVEGAÇÃO =====
+function irPara(tela){
+  document.querySelectorAll('.screen,.perfil-screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('screen-'+tela);
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function navPara(secaoId){
+  // Se não está na home, vai pra home primeiro
+  if(!document.getElementById('screen-home').classList.contains('active')){
+    irPara('home');
+    setTimeout(()=>{
+      const el=document.getElementById(secaoId);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    },150);
+  } else {
+    const el=document.getElementById(secaoId);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  }
+}
+
+// ===== MODAIS =====
+function abrirModal(id){document.getElementById(id).classList.add('open');}
+function fecharModal(id){document.getElementById(id).classList.remove('open');}
+function trocarModal(f,a){fecharModal(f);setTimeout(()=>abrirModal(a),120);}
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});
+});
+
+// ===== TOAST =====
+function showToast(msg,tipo=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast '+(tipo||'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+// ===== HEADER =====
+function atualizarHeader(){
+  const ha=document.getElementById('headerActions');
+  if(usuario){
+    const ini=usuario.nome.charAt(0).toUpperCase();
+    ha.innerHTML=`<div class="avatar-mini" onclick="irParaPerfil()" title="Meu Perfil">${ini}</div>
+    <button class="btn-outline" onclick="sair()">Sair</button>`;
+  } else {
+    ha.innerHTML=`<button class="btn-outline" onclick="abrirModal('modalLogin')">Entrar</button>
+    <button class="btn-primary" onclick="abrirModal('modalEscolha')">Cadastrar</button>`;
+  }
+}
+function irParaPerfil(){
+  if(!usuario)return;
+  irPara(usuario.tipo==='cliente'?'cliente':'tecnico');
+}
+
+// ===== LOGIN =====
+function fazerLogin(){
+  const e=document.getElementById('loginEmail').value.trim();
+  const s=document.getElementById('loginSenha').value;
+  if(!e||!s){showToast('Preencha email e senha.','red');return;}
+  usuario={tipo:'cliente',nome:'Demo Cliente',email:e,telefone:'(11) 91234-5678',cidade:'São Paulo'};
+  fecharModal('modalLogin');
+  finalizarSessao();
+}
+
+// ===== CADASTRO CLIENTE =====
+let cStepAtual=1;
+function cliStep(n){
+  if(n===2){
+    const nome=document.getElementById('cNome').value.trim();
+    const email=document.getElementById('cEmail').value.trim();
+    const tel=document.getElementById('cTelefone').value.trim();
+    if(!nome||nome.length<2){showToast('Digite um nome válido.','red');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('Digite um email válido.','red');return;}
+    if(!tel){showToast('Digite um telefone.','red');return;}
+  }
+  if(n===3){
+    const s=document.getElementById('cSenha').value;
+    const c=document.getElementById('cConfirma').value;
+    if(s.length<6){showToast('Senha mínima 6 caracteres.','red');return;}
+    if(s!==c){showToast('Senhas não conferem.','red');return;}
+  }
+  document.getElementById('cStep'+cStepAtual).classList.remove('active');
+  cStepAtual=n;
+  document.getElementById('cStep'+n).classList.add('active');
+  ['cs1','cs2','cs3'].forEach((id,i)=>{
+    const d=document.getElementById(id);d.classList.remove('active','done');
+    if(i+1<n)d.classList.add('done');else if(i+1===n)d.classList.add('active');
+  });
+}
+
+// ===== IA TRIAGEM (OpenAI) =====
+const OPENAI_KEY = 'SUA_CHAVE_OPENAI_Ask-proj-aziqVCckOSOuSi9MUcDnKN6K_bJcbb3J0RhAG0NEr6751bnOang2bNWXK6g0l4L2-Of2bohMzoT3BlbkFJUut-iDiGN4o4XbGt7_fkbiZQnsCPHj19Zk344VTtN5F4ERzZiDrqck_tDqrhl6c9Y10ZhWne8AQUI'; // cole sua chave aqui: sk-...
+
+async function analisarComIA(){
+  const problema=document.getElementById('cProblema').value.trim();
+  if(!problema||problema.length<10){showToast('Descreva o problema com pelo menos 10 caracteres.','red');return;}
+  document.getElementById('iaInput').style.display='none';
+  document.getElementById('iaLoading').style.display='block';
+  document.getElementById('iaResultado').style.display='none';
+  const thinking=document.getElementById('iaThinking');
+  thinking.innerHTML='';
+  const steps=['🔍 Lendo a descrição do problema...','📁 Identificando categoria do serviço...','⚡ Avaliando urgência e complexidade...','💰 Estimando faixa de preço...','👨‍💻 Selecionando perfil de técnico ideal...'];
+  for(let i=0;i<steps.length;i++){
+    await new Promise(r=>setTimeout(r,500));
+    const div=document.createElement('div');div.className='thinking-line';div.textContent=steps[i];
+    thinking.appendChild(div);
+  }
+  try{
+    const systemPrompt=`Você é a IA de triagem da GRAB Technology, plataforma de marketplace de serviços de TI no Brasil.
+Analise o problema do cliente e responda APENAS com JSON válido, sem markdown, sem texto fora do JSON.
+Formato exato:
+{"titulo":"título curto do serviço (máx 8 palavras)","categoria":"uma de: Desenvolvimento Web | Suporte Técnico | Design Gráfico / UI-UX | Cloud & Infraestrutura | Data Science / IA | Mobile","urgencia":"urgente | hoje | normal","urgencia_label":"frase curta explicando urgência","valor_min":numero,"valor_max":numero,"diagnostico":"2-3 frases: o que é o problema, o que o técnico fará, dica ao cliente","perfil_tecnico":"1 frase do perfil ideal","tempo_estimado":"estimativa de tempo"}`;
+
+    const response=await fetch('https://api.openai.com/v1/chat/completions',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer '+OPENAI_KEY
+      },
+      body:JSON.stringify({
+        model:'gpt-4o-mini',
+        max_tokens:1000,
+        messages:[
+          {role:'system',content:systemPrompt},
+          {role:'user',content:`Problema do cliente: ${problema}`}
+        ]
+      })
+    });
+    const data=await response.json();
+    if(data.error){throw new Error(data.error.message);}
+    const text=data.choices[0].message.content;
+    let json;
+    try{json=JSON.parse(text.replace(/```json|```/g,'').trim());}
+    catch(e){throw new Error('JSON inválido');}
+    iaResultadoData=json;
+    document.getElementById('iaLoading').style.display='none';
+    document.getElementById('iaResultado').style.display='block';
+    document.getElementById('iaTexto').innerHTML=`
+      <p style="font-weight:700;font-size:14px;color:#0f172a;margin-bottom:8px;">🔎 ${json.titulo}</p>
+      <p style="margin-bottom:6px;"><strong>Diagnóstico:</strong> ${json.diagnostico}</p>
+      <p style="margin-bottom:6px;"><strong>Técnico ideal:</strong> ${json.perfil_tecnico}</p>
+      <p><strong>Tempo estimado:</strong> ${json.tempo_estimado}</p>`;
+    const urgEmoji=json.urgencia==='urgente'?'🔴':json.urgencia==='hoje'?'🟡':'🟢';
+    document.getElementById('iaTags').innerHTML=`
+      <span class="ia-tag ia-tag-cat">📁 ${json.categoria}</span>
+      <span class="ia-tag ia-tag-urg">${urgEmoji} ${json.urgencia_label}</span>
+      <span class="ia-tag ia-tag-val">💰 R$ ${json.valor_min.toLocaleString('pt-BR')} – R$ ${json.valor_max.toLocaleString('pt-BR')}</span>`;
+  }catch(err){
+    document.getElementById('iaLoading').style.display='none';
+    document.getElementById('iaInput').style.display='block';
+    showToast('Erro na IA: '+err.message,'red');
+    console.error(err);
+  }
+}
+
+function resetIA(){
+  iaResultadoData=null;
+  document.getElementById('iaResultado').style.display='none';
+  document.getElementById('iaInput').style.display='block';
+}
+function finalizarCadastroClienteComIA(){finalizarCadastroCliente(iaResultadoData);}
+
+function finalizarCadastroCliente(ia){
+  const problema=document.getElementById('cProblema').value.trim();
+  usuario={tipo:'cliente',nome:document.getElementById('cNome').value.trim(),email:document.getElementById('cEmail').value.trim(),telefone:document.getElementById('cTelefone').value.trim(),cidade:document.getElementById('cCidade').value.trim()||'—'};
+  fecharModal('modalCliente');
+  finalizarSessao();
+  if(problema&&ia){
+    const s={id:Date.now(),titulo:ia.titulo||'Serviço via IA',desc:problema,categoria:ia.categoria||'Suporte Técnico',valor:ia.valor_min||0,cidade:usuario.cidade,urgencia:ia.urgencia||'normal',status:'aberto',cliente:usuario.nome};
+    todosServicos.unshift(s);meusServicos.unshift(s);
+    renderFeedCliente();renderMeusServicos();renderFeedPublico();
+    showToast('Serviço publicado com diagnóstico da IA! 🧠','green');
+  }else if(problema){
+    const s={id:Date.now(),titulo:'Serviço sem categoria',desc:problema,categoria:'Suporte Técnico',valor:0,cidade:usuario.cidade,urgencia:'normal',status:'aberto',cliente:usuario.nome};
+    todosServicos.unshift(s);meusServicos.unshift(s);
+    renderFeedCliente();renderMeusServicos();renderFeedPublico();
+  }
+  iaResultadoData=null;resetIA();
+}
+
+// ===== CADASTRO TÉCNICO =====
+let tStepAtual=1;
+function tecStep(n){
+  if(n===2){
+    const nome=document.getElementById('tNome').value.trim();
+    const email=document.getElementById('tEmail').value.trim();
+    const espec=document.getElementById('tEspec').value;
+    if(!nome||nome.length<2){showToast('Digite um nome válido.','red');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('Digite um email válido.','red');return;}
+    if(!espec){showToast('Selecione sua especialidade.','red');return;}
+  }
+  document.getElementById('tStep'+tStepAtual).classList.remove('active');
+  tStepAtual=n;
+  document.getElementById('tStep'+n).classList.add('active');
+  ['ts1','ts2','ts3'].forEach((id,i)=>{
+    const d=document.getElementById(id);d.classList.remove('active','done');
+    if(i+1<n)d.classList.add('done');else if(i+1===n)d.classList.add('active');
+  });
+}
+function finalizarCadastroTecnico(){
+  const s=document.getElementById('tSenha').value;
+  const c=document.getElementById('tConfirma').value;
+  if(s.length<6){showToast('Senha mínima 6 caracteres.','red');return;}
+  if(s!==c){showToast('Senhas não conferem.','red');return;}
+  usuario={tipo:'tecnico',nome:document.getElementById('tNome').value.trim(),email:document.getElementById('tEmail').value.trim(),telefone:document.getElementById('tTelefone').value.trim(),especialidade:document.getElementById('tEspec').value,bio:document.getElementById('tBio').value.trim(),linkedin:document.getElementById('tLinkedin').value.trim(),github:document.getElementById('tGithub').value.trim()};
+  fecharModal('modalTecnico');
+  finalizarSessao();
+}
+
+// ===== SESSÃO =====
+function finalizarSessao(){
+  atualizarHeader();
+  showToast('Bem-vindo(a), '+usuario.nome+'! 🐸','green');
+  if(usuario.tipo==='cliente')prepararCliente();
+  else prepararTecnico();
+  irParaPerfil();
+}
+function sair(){
+  usuario=null;meusServicos=[];servicosAndamentoList=[];
+  atualizarHeader();irPara('home');showToast('Você saiu da conta.');
+}
+
+// ===== ABAS =====
+function abaCliente(btn,pane){
+  document.querySelectorAll('#screen-cliente .ptab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#screen-cliente .ptab-pane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');document.getElementById(pane).classList.add('active');
+}
+function abaTecnico(btn,pane){
+  document.querySelectorAll('#screen-tecnico .ptab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('#screen-tecnico .ptab-pane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');document.getElementById(pane).classList.add('active');
+}
+
+// ===== CLIENTE =====
+function prepararCliente(){
+  document.getElementById('clienteNomeDisplay').textContent=usuario.nome;
+  document.getElementById('clienteCidadeDisplay').textContent=usuario.cidade||'—';
+  document.getElementById('clienteAvatar').textContent=usuario.nome.charAt(0).toUpperCase();
+  document.getElementById('dadoNome').textContent=usuario.nome;
+  document.getElementById('dadoEmail').textContent=usuario.email;
+  document.getElementById('dadoTelefone').textContent=usuario.telefone||'—';
+  renderFeedCliente();renderMeusServicos();
+}
+function renderFeedCliente(filtro){
+  filtro=filtro||filtroAtualCliente;
+  const grid=document.getElementById('feedCliente');
+  const lista=filtro==='todos'?todosServicos:todosServicos.filter(s=>s.categoria===filtro);
+  grid.innerHTML=lista.map(s=>cardServico(s,'cliente')).join('')||'<p style="color:var(--muted);">Nenhum serviço nesta categoria.</p>';
+}
+function filtrarCliente(cat,btn){
+  filtroAtualCliente=cat;
+  document.querySelectorAll('#filtrosCliente .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');renderFeedCliente(cat);
+}
+function renderMeusServicos(){
+  const el=document.getElementById('meusServicosLista');
+  if(meusServicos.length===0){el.innerHTML='<p style="color:var(--muted);">Nenhum serviço publicado ainda.</p>';return;}
+  el.innerHTML=meusServicos.map(s=>`
+    <div class="my-service-card">
+      <div><h5>${s.titulo}</h5><p>${s.categoria} · ${s.cidade}</p></div>
+      <div style="text-align:right;">
+        <span class="status-badge ${s.status==='concluido'?'status-concluido':s.status==='andamento'?'status-andamento':'status-aberto'}">
+          ${s.status==='concluido'?'✅ Concluído':s.status==='andamento'?'⚡ Em andamento':'📢 Aberto'}
+        </span>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;color:var(--blue);font-size:16px;margin-top:4px;">${s.valor>0?'R$ '+s.valor.toLocaleString('pt-BR'):'A negociar'}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ===== TÉCNICO =====
+function prepararTecnico(){
+  document.getElementById('tecNomeDisplay').textContent=usuario.nome;
+  document.getElementById('tecEspecDisplay').textContent=usuario.especialidade||'—';
+  document.getElementById('tecAvatar').textContent=usuario.nome.charAt(0).toUpperCase();
+  document.getElementById('tecDadoNome').textContent=usuario.nome;
+  document.getElementById('tecDadoEmail').textContent=usuario.email;
+  document.getElementById('tecDadoEspec').textContent=usuario.especialidade||'—';
+  document.getElementById('tecDadoLi').textContent=usuario.linkedin||'—';
+  document.getElementById('tecDadoGh').textContent=usuario.github||'—';
+  document.getElementById('tecDadoBio').textContent=usuario.bio||'—';
+  renderFeedTecnico();renderAndamento();
+}
+function renderFeedTecnico(){
+  const grid=document.getElementById('feedTecnico');
+  const abertos=todosServicos.filter(s=>s.status==='aberto');
+  grid.innerHTML=abertos.map(s=>cardServico(s,'tecnico')).join('')||'<p style="color:var(--muted);">Nenhum serviço disponível no momento.</p>';
+}
+function renderAndamento(){
+  const el=document.getElementById('servicosAndamento');
+  if(servicosAndamentoList.length===0){el.innerHTML='<p style="color:var(--muted);">Nenhum serviço em andamento.</p>';return;}
+  el.innerHTML=servicosAndamentoList.map(s=>`
+    <div class="my-service-card">
+      <div><h5>${s.titulo}</h5><p>${s.categoria} · ${s.cidade}</p></div>
+      <div style="text-align:right;">
+        <span class="status-badge status-andamento">⚡ Em andamento</span>
+        <button class="btn-pegar" style="margin-top:7px;padding:7px 14px;width:auto;" onclick="concluirServico(${s.id})">Marcar concluído</button>
+      </div>
+    </div>`).join('');
+}
+function concluirServico(id){
+  servicosAndamentoList=servicosAndamentoList.filter(s=>s.id!==id);
+  const idx=todosServicos.findIndex(s=>s.id===id);
+  if(idx>-1)todosServicos[idx].status='concluido';
+  renderAndamento();renderFeedTecnico();
+  showToast('Serviço marcado como concluído! ✅','green');
+}
+
+// ===== CARD SERVIÇO =====
+function cardServico(s,tipo){
+  const tagClass=s.urgencia==='urgente'?'tag-urgente':s.urgencia==='hoje'?'tag-hoje':'tag-normal';
+  const tagLabel=s.urgencia==='urgente'?'🔴 Urgente':s.urgencia==='hoje'?'🟡 Esta semana':'🟢 Tranquilo';
+  const valorStr=s.valor>0?`<div class="service-price">R$ ${s.valor.toLocaleString('pt-BR')}</div>`:`<div class="service-price" style="font-size:15px;color:var(--muted);">A negociar</div>`;
+  let btn='';
+  if(tipo==='cliente'){
+    btn=`<button class="btn-pegar" onclick="verServico(${s.id},'cliente')">Ver detalhes</button>`;
+  }else{
+    btn=s.status==='aberto'?`<button class="btn-pegar" onclick="verServico(${s.id},'tecnico')">🐸 Candidatar-se</button>`:`<button class="btn-pegar" disabled>Serviço fechado</button>`;
+  }
+  return `<div class="service-card">
+    <span class="tag ${tagClass}">${tagLabel}</span>
+    <h5>${s.titulo}</h5>
+    <p class="service-desc">${s.desc}</p>
+    <div class="service-meta"><span>📍 ${s.cidade}</span><span>📁 ${s.categoria}</span></div>
+    ${valorStr}${btn}</div>`;
+}
+
+// ===== PUBLICAR =====
+function publicarServico(){
+  const titulo=document.getElementById('pubTitulo').value.trim();
+  const cat=document.getElementById('pubCategoria').value;
+  const desc=document.getElementById('pubDesc').value.trim();
+  const valor=parseFloat(document.getElementById('pubValor').value)||0;
+  const urg=document.getElementById('pubUrgencia').value;
+  const cidade=document.getElementById('pubCidade').value.trim()||'Remoto';
+  if(!titulo||!cat||!desc||!urg){showToast('Preencha todos os campos obrigatórios.','red');return;}
+  const s={id:Date.now(),titulo,desc,categoria:cat,valor,cidade,urgencia:urg,status:'aberto',cliente:usuario?.nome||'Anônimo'};
+  todosServicos.unshift(s);meusServicos.unshift(s);
+  fecharModal('modalPublicar');
+  renderFeedCliente();renderMeusServicos();renderFeedPublico();
+  ['pubTitulo','pubDesc','pubValor','pubCidade'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pubCategoria').value='';document.getElementById('pubUrgencia').value='';
+  showToast('Serviço publicado com sucesso! 🐸','green');
+}
+
+// ===== VER SERVIÇO =====
+function verServico(id,tipo){
+  servicoAtual=todosServicos.find(s=>s.id===id);
+  if(!servicoAtual)return;
+  if(tipo==='cliente'){
+    document.getElementById('servicoDetalhe').innerHTML=`
+      <div class="info-card" style="margin-bottom:0;">
+        <h4>${servicoAtual.titulo}</h4>
+        <p style="color:var(--muted);line-height:1.65;font-size:13px;margin-bottom:12px;">${servicoAtual.desc}</p>
+        <div class="info-row"><span>Categoria</span><span>${servicoAtual.categoria}</span></div>
+        <div class="info-row"><span>Local</span><span>${servicoAtual.cidade}</span></div>
+        <div class="info-row"><span>Orçamento</span><span style="font-weight:800;color:var(--blue);">${servicoAtual.valor>0?'R$ '+servicoAtual.valor.toLocaleString('pt-BR'):'A negociar'}</span></div>
+        <div class="info-row"><span>Publicado por</span><span>${servicoAtual.cliente}</span></div>
+        <div class="info-row"><span>Status</span><span class="status-badge status-aberto">Aberto</span></div>
+      </div>`;
+    etapaPegar=1;atualizarEtapasPegar(1);
+    document.getElementById('pegarTitle').textContent='Detalhes do Serviço';
+    document.getElementById('btnVoltarPegar').style.display='none';
+    abrirModal('modalPegar');
+  }else{
+    document.getElementById('tecPegarDetalhe').innerHTML=`
+      <div class="info-card">
+        <h4>${servicoAtual.titulo}</h4>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:10px;">${servicoAtual.desc}</p>
+        <div class="info-row"><span>Orçamento cliente</span><span style="font-weight:800;color:var(--blue);">${servicoAtual.valor>0?'R$ '+servicoAtual.valor.toLocaleString('pt-BR'):'A negociar'}</span></div>
+        <div class="info-row"><span>Local</span><span>${servicoAtual.cidade}</span></div>
+        <div class="info-row"><span>Categoria</span><span>${servicoAtual.categoria}</span></div>
+      </div>`;
+    abrirModal('modalTecPegar');
+  }
+}
+
+function tecCandidatar(){
+  const val=document.getElementById('tecPropVal').value;
+  const prazo=document.getElementById('tecPropPrazo').value;
+  const msg=document.getElementById('tecPropMsg').value.trim();
+  if(!val||!prazo||!msg){showToast('Preencha todos os campos.','red');return;}
+  servicosAndamentoList.push({...servicoAtual});
+  const idx=todosServicos.findIndex(s=>s.id===servicoAtual.id);
+  if(idx>-1)todosServicos[idx].status='andamento';
+  fecharModal('modalTecPegar');
+  renderFeedTecnico();renderAndamento();
+  document.getElementById('tecPropVal').value='';
+  document.getElementById('tecPropPrazo').value='';
+  document.getElementById('tecPropMsg').value='';
+  showToast('Candidatura enviada! Aguarde confirmação. ⚡','green');
+}
+
+// ===== PEGAR STEP =====
+function pegarStep(n){
+  if(n===3){
+    const pv=document.getElementById('propValor').value;
+    const pp=document.getElementById('propPrazo').value;
+    const pm=document.getElementById('propMsg').value.trim();
+    if(!pp||!pm){showToast('Preencha prazo e informações adicionais.','red');return;}
+    const val=parseFloat(pv)||servicoAtual?.valor||0;
+    const taxa=pagSelecionado==='cartao'?val*0.03:0;
+    document.getElementById('priceBreakdown').innerHTML=`
+      <p style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;">Resumo do pagamento</p>
+      <div class="price-row"><span>Serviço: ${servicoAtual?.titulo||'—'}</span><span>R$ ${val.toLocaleString('pt-BR')}</span></div>
+      ${taxa>0?`<div class="price-row"><span>Taxa do cartão (3%)</span><span>R$ ${taxa.toFixed(2)}</span></div>`:''}
+      <div class="price-row"><span>Proteção GRAB</span><span>R$ 0</span></div>
+      <div class="price-row total"><span>Total</span><span>R$ ${(val+taxa).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span></div>`;
+  }
+  document.getElementById('pStep'+etapaPegar).classList.remove('active');
+  etapaPegar=n;
+  document.getElementById('pStep'+n).classList.add('active');
+  atualizarEtapasPegar(n);
+  const titles=['Detalhes do Serviço','Confirmar Interesse','Pagamento','Confirmado!'];
+  document.getElementById('pegarTitle').textContent=titles[n-1];
+  document.getElementById('btnVoltarPegar').style.display=n>1&&n<4?'block':'none';
+}
+function voltarEtapaPegar(){if(etapaPegar>1)pegarStep(etapaPegar-1);}
+function atualizarEtapasPegar(n){
+  ['ps1','ps2','ps3','ps4'].forEach((id,i)=>{
+    const d=document.getElementById(id);d.classList.remove('active','done');
+    if(i+1<n)d.classList.add('done');else if(i+1===n)d.classList.add('active');
+  });
+}
+function selecionarPag(tipo){
+  pagSelecionado=tipo;
+  ['pix','cartao','boleto'].forEach(t=>{document.getElementById('pay-'+t).classList.toggle('selected',t===tipo);});
+}
+
+// ===== FEED PÚBLICO =====
+function renderFeedPublico(filtro){
+  filtro=filtro||filtroAtualPublico;
+  const grid=document.getElementById('feedPublico');
+  const lista=(filtro==='todos'?todosServicos:todosServicos.filter(s=>s.categoria===filtro)).slice(0,8);
+  grid.innerHTML=lista.map(s=>{
+    const tagClass=s.urgencia==='urgente'?'tag-urgente':s.urgencia==='hoje'?'tag-hoje':'tag-normal';
+    const tagLabel=s.urgencia==='urgente'?'🔴 Urgente':s.urgencia==='hoje'?'🟡 Esta semana':'🟢 Tranquilo';
+    return `<div class="service-card">
+      <span class="tag ${tagClass}">${tagLabel}</span>
+      <h5>${s.titulo}</h5>
+      <p class="service-desc">${s.desc}</p>
+      <div class="service-meta"><span>📍 ${s.cidade}</span><span>📁 ${s.categoria}</span></div>
+      <div class="service-price">${s.valor>0?'R$ '+s.valor.toLocaleString('pt-BR'):'A negociar'}</div>
+      <button class="btn-pegar" onclick="abrirModal('modalEscolha')">🐸 Cadastre-se para pegar</button>
+    </div>`;
+  }).join('');
+}
+function filtrarPublico(cat,btn){
+  filtroAtualPublico=cat;
+  document.querySelectorAll('#filtrosPublico .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');renderFeedPublico(cat);
+}
+
+// ===== GRID TÉCNICOS =====
+function renderTechGrid(){
+  document.getElementById('techGrid').innerHTML=tecnicos.map(t=>`
+    <div class="tech-card">
+      <img src="${t.foto}" class="tech-avatar" alt="${t.nome}" onerror="this.style.display='none'">
+      <h4>${t.nome}</h4>
+      <div class="tech-role">${t.role}</div>
+      <div class="skills-row">${t.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div>
+      <div class="tech-rating">⭐ ${t.rating} · ${t.servicos} serviços concluídos</div>
+      <button class="btn-ver" onclick="verPerfilTecnico(${t.id})">Ver Perfil Completo</button>
+    </div>`).join('');
+}
+
+// ===== PERFIL PÚBLICO TÉCNICO =====
+function verPerfilTecnico(id){
+  const t=tecnicos.find(x=>x.id===id);
+  if(!t)return;
+  document.getElementById('pubTecFoto').src=t.foto;
+  document.getElementById('pubTecNome').textContent=t.nome;
+  document.getElementById('pubTecRole').textContent=t.role;
+  document.getElementById('pubTecRating').textContent='⭐ '+t.rating;
+  document.getElementById('pubTecServicos').textContent=t.servicos+'+';
+  document.getElementById('pubTecBio').textContent=t.bio||'—';
+  document.getElementById('pubTecSkills').innerHTML=t.skills.map(s=>`<span class="skill-tag" style="font-size:13px;padding:5px 12px;">${s}</span>`).join('');
+  let links='';
+  if(t.linkedin)links+=`<div class="info-row"><span>🔗 LinkedIn</span><span style="color:var(--blue);font-size:12px;">${t.linkedin}</span></div>`;
+  if(t.github)links+=`<div class="info-row"><span>💻 GitHub</span><span style="color:var(--blue);font-size:12px;">${t.github}</span></div>`;
+  document.getElementById('pubTecLinks').innerHTML=links||'<p style="font-size:13px;color:var(--muted);">Nenhum link cadastrado.</p>';
+  abrirModal('modalPerfilTecnico');
+}
+
+// ===== INIT =====
+renderFeedPublico();
+renderTechGrid();
+</script>
+</body>
+</html>
